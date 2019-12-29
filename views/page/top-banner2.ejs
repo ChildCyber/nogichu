@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <%- include('../header.ejs') %>
+
+    <main class="main-content">
+
+
+
+        <div class="grid-container">
+            <h2 class="MsoNormal">&nbsp;</h2>
+            <h2 class="MsoNormal"><strong><img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.nogizaka46-cn.com/storage/pages/December2019/news_top_icon.png" alt=""></strong></h2>
+            <p>&nbsp;</p>
+            <p style="text-align: center;">乃木坂46中国会员站是面向中国的乃木坂46粉丝而成立的交流互动平台</p>
+            <p style="text-align: center;">主要用于发布乃木坂46的相关资讯</p>
+            <p style="text-align: center;">本站网址为 www.nogizaka46-cn.com</p>
+            <p style="text-align: center;">为乃木坂46中国会员站官方网站</p>
+            <p style="text-align: center;">同时也是乃木坂46首个官方海外会员站</p>
+            <p style="text-align: center;">提供乃木坂46日本演唱会的门票抽选等特典</p>
+            <p style="text-align: center;">&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </div>
+
+    </main>
+
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <%- include('../header.ejs') %>
+
+    <main class="main-content">
+
+
+
+        <div class="grid-container">
+            <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.nogizaka46-cn.com/storage/pages/December2019/关于乃木坂461.png" alt=""></p>
+            <p style="text-align: center;">乃木坂46成立于2011年，被作为AKB48官方的竞争对手而结成的组合，总制作人是秋元康先生</p>
+            <p style="text-align: center;">团体名字中的「46」是以英语发音读作「Forty-six」，而非以日语发音读作「四十六／よんじゅうろく」</p>
+            <p style="text-align: center;">组合目前共有成员43名，现任队长为秋元真夏</p>
+            <p style="text-align: center;">2012年2月 发行出道单曲《ぐるぐるカーテン》</p>
+            <p style="text-align: center;">2012年5月 凭借单曲《おいでシャンプー》以约15.6万张的首周销量夺得日本公信榜周榜首位</p>
+            <p style="text-align: center;">2015年1月 组合发行首张专辑《透明な色》，同年12月31日出演NHK红白歌会</p>
+            <p style="text-align: center;">演唱歌曲《君の名は希望》，自此每年都登上了红白歌会的舞台</p>
+            <p style="text-align: center;">2017年3月 发行第十七张单曲《インフルエンサー》，单曲于同年6月20日达成百万销量记录，成为组合出道后首张累计销售量破百万的单曲</p>
+            <p style="text-align: center;">组合凭借该曲获得第59届日本唱片大奖至2019年9月 组合已发行24张单曲 累计销售CD1800万张以上</p>
+        </div>
+
+    </main>
+
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
