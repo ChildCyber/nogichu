@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('./head.ejs') %>
+
+<body
+        style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('./bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..."/>
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>                </div> <!-- /.cell -->
+            </div> <!-- /.grid -->
+        </div> <!-- /.container -->
+    </div> <!-- /.header-site-search -->
+
+    <%- include('./header.ejs') %>
+
+    <main class="main-content" >
+        <div style="
+	background-image: url('/images/index/bg_index.png?6');
+	background-repeat: no-repeat;
+	background-position: top 0px right 0px;
+	">
+            <div class="orbit" role="region" aria-label="Favorite Space Pictures"
+                 data-orbit="zbg7j8-orbit">
+                <ul class="orbit-container" tabindex="0"
+                    style="height: 640px; margin-top: 5%; text-align: center;">
+                    <button class="orbit-previous" aria-label="previous" tabindex="0">
+                        <span class="show-for-sr">Previous Slide</span> <img
+                                src="/images/index/left_sliding.png" width="40px">
+                    </button>
+                    <button class="orbit-next" aria-label="next" tabindex="0">
+                        <span class="show-for-sr">Next Slide</span> <img
+                                src="/images/index/right_slip.png" width="40px">
+                    </button>
+
+                    <li class="orbit-slide is-active" data-slide="2" aria-live="polite"
+                        style="position: relative; max-height: 640px; display: block; top: 0px;">
+                        <a href="/page/top-banner1">
+                            <img src="/images/index/top-banner1.png?12" width="1000px">
+                        </a>
+                    </li>
+                    <li class="orbit-slide" data-slide="1"
+                        style="max-height: 640px; display: none; position: relative; top: 0px;">
+                        <a href="/page/top-banner2">
+                            <img src="/images/index/top-banner2.png?12" width="1000px">
+                        </a>
+                    </li>
+                    <li class="orbit-slide" data-slide="0"
+                        style="max-height: 640px; display: none; position: relative; top: 0px;">
+                        <a href="/page/top-banner3">
+                            <img src="/images/index/top-banner3.png?12" width="1000px">
+                        </a>
+                    </li>
+                </ul>
+                <div class="text-center">
+                    <img src="/images/index/sliding_hint.png" width="200px">
+                </div>
+            </div>
+
+            <div class="grid-container text-left page-link" id="news">
+                <img src="/images/index/h1_news_title.png" style="height: 30px;">
+            </div>
+            <div class="row">
+                <div class="vspace-2"></div>
+
+                <div class="grid-container">
+                    <div class="cell small-12">
+                        <div class="grid-x grid-padding-x">
+                            <div class="cell small-12 medium-4 large-3">
+                                <div class="card">
+                                    <a href="/blog/46">
+                                        <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/kIpadk7Zx9SJf8LE3M0t.JPG" style="width:100%">
+                                    </a>
+                                    <div class="card-section">
+                                        <!--
+                                                                            <p style="margin:10px;">新闻资讯</p>
+                                                                         -->
+                                        <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                        <a href="/blog/46">
+                                            <h4>乃木坂46中国会员站先行入会特典</h4>
+                                        </a>
+
+                                        <span class="">
+
+                                    2019-12-24
+                                </span>
+                                    </div> <!-- /.card-section -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.cell -->
+                            <div class="cell small-12 medium-4 large-3">
+                                <div class="card">
+                                    <a href="/blog/N46-8th-year-birthday-live">
+                                        <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/wXe6byEmB1wTa5GpWJ6K.jpg" style="width:100%">
+                                    </a>
+                                    <div class="card-section">
+                                        <!--
+                                                                            <p style="margin:10px;">乃木坂46中国会员站「8th YEAR BIRTHDAY LIVE」抽选预&amp;hellip;</p>
+                                                                         -->
+                                        <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                        <a href="/blog/N46-8th-year-birthday-live">
+                                            <h4>「8th YEAR BIRTHDAY LIVE」抽选预告</h4>
+                                        </a>
+
+                                        <span class="">
+
+                                    2019-12-24
+                                </span>
+                                    </div> <!-- /.card-section -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.cell -->
+                            <div class="cell small-12 medium-4 large-3">
+                                <div class="card">
+                                    <a href="/blog/8th-year-birthday-live">
+                                        <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/lvlwySiRVdWV0JA5HfOB.JPG" style="width:100%">
+                                    </a>
+                                    <div class="card-section">
+                                        <!--
+                                                                            <p style="margin:10px;">其他信息</p>
+                                                                         -->
+                                        <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                        <a href="/blog/8th-year-birthday-live">
+                                            <h4>「8th YEAR BIRTHDAY LIVE」 举行决定的通知</h4>
+                                        </a>
+
+                                        <span class="">
+
+                                    2019-11-28
+                                </span>
+                                    </div> <!-- /.card-section -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.cell -->
+                            <div class="cell small-12 medium-4 large-3">
+                                <div class="card">
+                                    <a href="/blog/11">
+                                        <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/November2019-260x175/8gpP9eCdzTz8TUs6ZTbI.jpg" style="width:100%">
+                                    </a>
+                                    <div class="card-section">
+                                        <!--
+                                                                            <p style="margin:10px;">最新资讯</p>
+                                                                         -->
+                                        <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                        <a href="/blog/11">
+                                            <h4>乃木坂46 在上海举行公演</h4>
+                                        </a>
+
+                                        <span class="">
+
+                                    2019-10-27
+                                </span>
+                                    </div> <!-- /.card-section -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.cell -->
+                        </div> <!-- /.grid -->
+                    </div> <!-- /.cell -->
+                </div> <!-- /.grid-container -->
+
+                <div class="vspace-1"></div>
+
+                <div class="text-center">
+                    <a class="button large top" href="/blog">更多</a>
+                </div>
+            </div>
+            <div class="vspace-2"></div>
+
+            <div class="grid-container text-left page-link" id="funclub-introduction"
+                 style="margin-bottom: 50px;">
+                <img src="/images/index/h1_about_girls_groups_title.png"
+                     style="height: 30px;">
+            </div>
+
+            <div class="row column text-left grid-container lead2"
+                 style="background-color: white; box-shadow: 5px 5px 10px; border: 1px solid #d0cfcc; border-radius: 30px; padding: 2%;">
+
+                <div
+                        style="height: 100%; width: 100%; background-image: url('/images/index/about_bg.png'); background-position: center 80%; border-radius: 15px; background-repeat: no-repeat; position: relative; z-index: 0; padding: 10px;">
+                    <h3 style="color: white; text-align: center;">乃木坂46是？</h3>
+                    <p
+                            style="color: white; padding-right: 2%; padding-left: 2%;">
+                        作为AKB48的官方对手而结成的偶像团体。组合名中的“乃木坂”是由最终面试场馆所在的“SME乃木坂大楼”而来的。
+                        有关“46”的由来，秋元康先生认为是“即使人数上不如AKB48也不认下风的干劲”的含义。读法是“Nogizaka Forty-six”。成员经过全国规模的选拔，从38,934位报名的人中脱颖而出。
+                    </p>
+                </div>
+                <div class="vspace-1"></div>
+                <div class="grid-x grid-margin-x grid-padding-x align-middle">
+                    <div class="small-12 medium-8 large-8">
+                        <div style="margin-left: 4%">
+                            <img src="/images/index/about_girls_groups_pic_2.png"
+                                 style="height: 50px;">
+                        </div>
+                    </div>
+                    <div class="small-12 medium-4 large-4">
+                        <div class="text-right">
+                            <img src="/images/index/about_girls_groups_pic_3.png?1"
+                                 style="height: 40px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="vspace-1"></div>
+                <div>
+                    <p style="margin-left: 3%; margin-right: 3%;">
+                        乃木坂46中国会员站为中国唯一官方指定的会员站，享有诸多会员福利，赶快加入乃木坂46中国会员站，获取属于你的专属特典吧<br/>
+                        乃木坂46中国会员
+                        <img
+                                src="/images/index/about_girls_groups_pic_4.png" width="60">特典
+                    </p>
+                </div>
+                <div
+                        style="height: 100%; width: 100%; background-color: #f5f0f7; background-position: center 80%; border-radius: 15px; background-repeat: no-repeat; position: relative; z-index: 0; padding: 10px;">
+                    <div style="padding-top: 1%; padding-right: 2%; padding-left: 2%;">
+    			<span
+                        style="font-size: 1.6rem; font-style: italic; font-weight: bold; color: #d7b9e1;">1.</span>获得抽选日本演唱会LIVE门票的机会（乃木坂46每年定例的生日LIVE/夏巡演出/等）<span
+                                style="color: #d7b9e1;">※抽选规则以实 际公布为准</span>
+                        </p>
+                        <p>
+    				<span
+                            style="font-size: 1.6rem; font-style: italic; font-weight: bold; color: #d7b9e1;">2.</span>乃木坂46中国会员站限定线下见面会申请权利*如无特别告知 出席成员为4名左右
+                        </p>
+                        <p>
+    				<span
+                            style="font-size: 1.6rem; font-style: italic; font-weight: bold; color: #d7b9e1;">3.</span>获得乃木坂46中国会员站专属会员卡
+                        </p>
+                        <!--
+                        <p>
+                            <span
+                                style="font-size: 1.6rem; font-style: italic; font-weight: bold; color: #d7b9e1;">4.</span>获得购买中国限定周边的权利
+                        </p>
+                         -->
+                        <p>敬请期待更多特典……</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="vspace-2"></div>
+
+            <div class="vspace-4"></div>
+            <div class="grid-container text-left page-link" id="member-benefits">
+                <img src="/images/index/h1_vip_title.png" style="height: 30px;">
+            </div>
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x grid-padding-x text-center">
+                    <div class="cell small-12 medium-4 large-4 small-order-1 medium-order-1 large-order-1" style="margin-top: 30px;">
+                        <img src="/images/index/vip_img_1.png?1">
+                    </div>
+                    <div class="cell small-12 medium-8 large-8 small-order-2 medium-order-2 large-order-2 align-self-middle">
+                        <img src="/images/index/vip_txt_1.png?2" style="height:120px;">
+                    </div>
+
+                    <div class="cell small-12 medium-8 large-8 small-order-4 medium-order-3 large-order-3 align-self-middle">
+                        <img src="/images/index/vip_txt_2.png?2" style="height:90px;">
+                    </div>
+
+                    <div class="cell small-12  medium-4 large-4 small-order-3 medium-order-4 large-order-4" style="margin-top: 30px;">
+                        <img src="/images/index/vip_img_2.png?1">
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x grid-padding-x text-center">
+                    <div class="cell small-12 medium-4 large-4 small-order-1 medium-order-1 large-order-1" style="margin-top: 30px;">
+                        <img src="/images/index/vip_img_3.png">
+                    </div>
+                    <div class="cell small-12 medium-8 large-8 small-order-2 medium-order-2 large-order-2 align-self-middle">
+                        <img src="/images/index/vip_txt_3.png?1" style="height:50px;">
+                    </div>
+
+                    <div class="cell small-12 medium-8 large-8 small-order-4 medium-order-3 large-order-3 align-self-middle">
+                        <img src="/images/index/vip_txt_4.png?2" style="height:45px;">
+                    </div>
+                    <div class="cell small-12 medium-4 large-4 small-order-3 medium-order-4 large-order-4" style="margin-top: 30px;">
+                        <img src="/images/index/vip_img_4.png">
+                    </div>
+                </div>
+                <div class="vspace-2"></div>
+                <div class="text-center">
+                    <a class="button large top" href="/page/member-benefits">更多</a>
+                </div>
+            </div>
+
+            <div class="vspace-2"></div>
+
+            <div class="grid-container text-left page-link" id="mypage-guidance"
+                 style="margin-bottom: 30px;">
+                <img src="/images/index/h1_my_homepage_title.png" style="height: 30px;">
+            </div>
+
+            <div class="row column text-left grid-container"
+                 style="background-color: white; box-shadow: 5px 5px 10px; border: 1px solid #d0cfcc; border-radius: 30px; padding: 2%;">
+                <div class="grid-container">
+                    <div class="grid-x grid-margin-x grid-padding-x align-middle"
+                         style="padding: 1%;">
+                        <div class="small-12 medium-4 large-4 text-center">
+                            <img src="/images/index/my_homepage_img.png?3">
+                        </div>
+                        <div class="small-12 medium-8 large-8">
+                            <div class="lead text-left" style="margin: 30px;">
+                                <p>入会的所有年费会员都可使用“乃木坂46中国会员站 【我的主页】这一页面。 在我的主页中，您可以选择自己喜爱的3名成员作为应援对象。
+                                </p>
+                                <img src="/images/index/my_homepage_hr.png">
+                                <div class="vspace-2"></div>
+                                <p>在我的主页中可以使用的在线功能：</p>
+                                <p>○乃木坂46中国会员站限定线下企划申请</p>
+                                <p>○登录情报的确认</p>
+                                <p>○登录情报的变更</p>
+                                <p>等等……</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="vspace-2"></div>
+            <div class="vspace-2"></div>
+
+            <div class="grid-container text-left page-link" id="new-membership"
+                 style="margin-bottom: 50px;">
+                <img src="/images/index/h1_admission_title.png" style="height: 30px;">
+            </div>
+
+            <div class="row column text-center">
+                <div class="grid-container">
+                    <div class="grid-x grid-margin-x grid-padding-x align-middle">
+                        <div class="small-12 medium-5 large-5">
+                            <img src="/images/index/admission_method_pic_1.png"
+                                 style="height: 250px;">
+                        </div>
+                        <div class="small-12 medium-7 large-7">
+                            <div class="align-self-middle text-left lead" style="padding:3%;">
+                                <p>在网页的上方点击【立即入会】，输入您的手机号，获取验证码，
+                                    并设置您的密码</p>
+                            </div>
+                        </div>
+                        <div class="vspace-3"></div>
+                        <div class="small-12  medium-5 large-5">
+                            <img src="/images/index/admission_method_pic_2.png"
+                                 style="height: 250px;">
+                        </div>
+                        <div class="small-12 medium-7 large-7">
+                            <div class="align-self-middle text-left lead" style="padding:3%;">
+                                <p>
+                                    支付会费即可享受会员专属特典与权限<br />
+                                    会员费的支付或者是续费，均可以选择【支付宝】作为支付方式<br />
+                                    支付完成后，您即可成为乃木坂46中国会员站正式会员
+                                </p>
+                            </div>
+                        </div>
+                        <div class="vspace-3"></div>
+                        <div class="small-12 medium-5 large-5">
+                            <img src="/images/index/admission_method_pic_3.png"
+                                 style="height: 250px;">
+                        </div>
+                        <div class="small-12 medium-7 large-7">
+                            <div class="align-self-middle text-left lead" style="padding:3%;">
+                                <p>完善您的会员信息，以便接收到我们后续的相关会员专属活动推送</p>
+                            </div>
+                        </div>
+                        <div class="vspace-3"></div>
+                        <div class="small-12 medium-5 large-5">
+                            <img src="/images/index/admission_method_pic_4.png"
+                                 style="height: 250px;">
+                        </div>
+                        <div class="small-12 medium-7 large-7">
+                            <div class="align-self-middle text-left lead" style="padding:3%;">
+                                <p>您可登录专属于正式会员的【我的主页】，即可享有专属权限！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vspace-4"></div>
+                <div class="text-center">
+                    <a class="button large top"
+                       href="/register">立即入会</a>
+                </div>
+            </div>
+
+            <div class="vspace-5"></div>
+        </div>
+    </main>
+
+    <%- include('./footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer
+        src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>

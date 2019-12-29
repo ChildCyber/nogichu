@@ -1,0 +1,68 @@
+<div class="off-canvas position-right" id="offCanvas" data-off-canvas data-transition="push">
+    <a href="#" class="close-button off-canvas-menu-icon-close" data-close="offCanvas">
+        <span aria-hidden="true">&times;</span>
+    </a>
+
+    <ul class="vertical menu">
+        <li><a class="menu-button" id="menu-button-news" href="/#news" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>新闻资讯</b></a></li>
+        <li><a class="menu-button" id="menu-button-funclub-introduction" href="/#funclub-introduction" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>关于乃木坂46</b></a></li>
+        <li><a class="menu-button" id="menu-button-nogizaka-member" href="/nogizaka-member/index" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>成员介绍</b></a></li>
+        <li><a class="menu-button" id="menu-button-member-benefits" href="/#member-benefits" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>会员特典</b></a></li>
+        <li><a class="menu-button" id="menu-button-mypage-guidance" href="/#mypage-guidance" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>我的主页介绍</b></a></li>
+        <li><a class="menu-button" id="menu-button-register" href="/register"><b>立即入会</b></a></li>
+
+
+
+
+        <script>
+            $(function() {
+
+                function addMenuButtonBorder(urlName) {
+                    console.log(location.href);
+
+                    var result = location.href.indexOf(urlName);
+                    if (result !== -1) {
+                        var id = "a#" + $(this).attr("id") + ".menu-button";
+                        $("a#menu-button-" + urlName + ".menu-button").addClass("menu-button-border");
+                    }
+                }
+
+                addMenuButtonBorder("mypage");
+                addMenuButtonBorder("nogizaka-member");
+                addMenuButtonBorder("news");
+                addMenuButtonBorder("funclub-introduction");
+                addMenuButtonBorder("member-benefits");
+                addMenuButtonBorder("mypage-guidance");
+                addMenuButtonBorder("register");
+
+                console.log($('#menu-button-funclub-introduction'));
+                $('.menu-button').on('click', function() {
+                    $('.menu-button').removeClass('menu-button-border');
+                    $(this).addClass('menu-button-border');
+
+                    //var id =  "a#"+$(this).attr("id")+".menu-button";
+                    //$(id).addClass("menu-button-border");
+                });
+
+
+            });
+        </script>
+    </ul>
+
+    <hr />
+
+    <ul class="vertical menu">
+
+        <li>
+            <a href="/login">登录</a>
+
+            <a href="/register">注册</a>
+        </li>
+    </ul>
+
+    <hr />
+
+    <ul class="menu social-icons align-center">
+
+    </ul>
+</div>
