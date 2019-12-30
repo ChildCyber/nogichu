@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <%- include('../header.ejs') %>
+
+    <div class="header-site-search" data-toggle-search="">
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for...">
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>                </div> <!-- /.cell -->
+            </div> <!-- /.grid -->
+        </div> <!-- /.container -->
+    </div> <!-- /.header-site-search -->
+
+
+
+    <main class="main-content">
+
+        <div class="grid-container">
+            <div class="vspace-2"></div>
+            <div class="text-center">
+                <img src="/images/nogizaka-member/member_top_icon.png" style="height: 100px;margin-top:30px;margin-bottom:50px;">
+            </div>
+
+            <h4 style="margin-left:1%;display:inline;">五十音顺</h4><span>（来源：乃木坂46 OFFICIAL WEB SITE）</span>
+            <div class="grid-x grid-margin-x grid-padding-x text-center">
+
+                <% for (let i = 0;i < members.length;i++){ %>
+                    <div class="cell small-6 medium-6 large-3">
+                        <div>
+                            <a href="/nogizaka-member/view/<%= members[i].id %>">
+                                <img class="thumbnail" src="data:image/png;base64,<%= members[i].photo %>" />
+                            </a>
+                        </div>
+                        <div style="margin-top:-5%; margin-bottom:20%;">
+                            <a href="/nogizaka-member/view/<%= members[i].id %>"><%= members[i].name %></a><br>
+                            <%= members[i].romaji %>
+                        </div>
+                    </div>
+                <% } %>
+
+            </div>
+
+            <h4 style="margin-left:1%">四期生</h4>
+            <div class="grid-x grid-margin-x grid-padding-x text-center">
+
+                <% for (let i = 0;i < yonKiSei.length;i++){ %>
+                    <div class="cell small-6 medium-6 large-3">
+                        <div>
+                            <a href="/nogizaka-member/view/<%= yonKiSei[i].id %>">
+                                <img class="thumbnail" src="data:image/png;base64,<%= yonKiSei[i].photo %>" />
+                            </a>
+                        </div>
+                        <div style="margin-top:-5%; margin-bottom:20%;">
+                            <a href="/nogizaka-member/view/<%= yonKiSei[i].id %>"><%= yonKiSei[i].name %></a><br>
+                            <%= yonKiSei[i].romaji %>
+                        </div>
+                    </div>
+                <% } %>
+
+            </div>
+        </div>
+
+    </main>
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
