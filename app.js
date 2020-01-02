@@ -43,9 +43,15 @@ app.use('/nogizaka-member', require('./routes/member'));
 app.use('/page', require('./routes/page'));
 app.use('/blog', require('./routes/blog'));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+/**
+ * 404页面
+ */
+app.get('*', (req, res) => {
+  res.status(404).render('404.ejs', {
+    'login': req.session.logined,
+    'user': req.session.user,
+    'premium': req.session.premium
+  });
 });
 
 // error handler
