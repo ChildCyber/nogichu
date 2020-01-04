@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <%- include('../header.ejs') %>
+    <!-- /.top-bar -->
+
+    <main class="main-content">
+        <form class="register-form" method="POST" action="/register">
+            <div class="grid-container">
+                <div class="grid-x grid-padding-y">
+                    <div class="medium-6 medium-offset-3 cell email">
+                        <h4 class="text-center">账号注册</h4>
+                        <input type="hidden" name="_token" value="hjWx88FpRjuMQMq12m9RHCzD8pPtadUZahMnwrDK">
+
+                        <% if (locals.phoneHelpText!=undefined) { %>
+                            <div class="callout small alert text-center" id="nameHelpText">
+                                <p><%= phoneHelpText %></p>
+                            </div>
+                        <% } %>
+
+                        <label for="phone"> 手机号码 <input id="phone" type="text"
+                                                        class="form-control" name="phone" value="<%= locals.phone %>"
+                                                        aria-describedby="nameHelpText" required autofocus>
+                        </label>
+
+
+                        <!--<% if (locals.verifyHelpText!=undefined) { %>-->
+                        <!--<div class="callout small alert text-center" id="nameHelpText">-->
+                        <!--<p>验证码无效</p>-->
+                        <!--</div>-->
+                        <!--<% } %>-->
+                        <!--<label for="sms-code"> 验证码-->
+                        <!--<div class="input-group">-->
+                        <!--<input id="sms-code" type="text" class="input-group-field"-->
+                        <!--name="sms-code" value=""-->
+                        <!--aria-describedby="nameHelpText" required autofocus>-->
+                        <!--<button type="button" id="sendVerifySmsButton"-->
+                        <!--class="btn btn-warning button warning">获取验证码</button>-->
+                        <!--</div>-->
+                        <!--</label>-->
+
+
+                        <% if (locals.passwordHelpText!=undefined) { %>
+                            <div class="callout small alert text-center" id="passwordHelpText">
+                                <p><%= passwordHelpText %></p>
+                            </div>
+                        <% } %>
+
+                        <label for="password"> 输入密码 <input id="password"
+                                                           type="password" name="password" aria-describedby="passwordHelpText"
+                                                           required>
+                        </label>
+                        <label for="password-confirm"> 确认密码 <input
+                                    id="password-confirm" type="password" name="password_confirmation"
+                                    required>
+                        </label>
+
+                        <div>
+                            <% if (locals.nameHelpText!=undefined) { %>
+                                <div class="callout small alert text-center" id="nameHelpText">
+                                    <p><%= nameHelpText %></p>
+                                </div>
+                            <% } %>
+                            <input name="agree" type="checkbox" value="1">
+                            <a onclick="navigateTargetUrl('/page/agreement'); return false;">我已阅读并同意《乃木坂46中国会员站用户协议》</a>
+                        </div>
+
+                        <button type="submit" class="button expanded">创建账户</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="/js/laravel-sms.js"></script>
+        <script>
+            $('#sendVerifySmsButton').sms({
+                //laravel csrf token
+                token: "hjWx88FpRjuMQMq12m9RHCzD8pPtadUZahMnwrDK",
+                //请求间隔时间
+                interval: 60,
+                //请求参数
+                requestData: {
+                    //手机号
+                    mobile: function() {
+                        console.log("aa");
+                        return $('#phone').val()
+                    },
+                    //手机号的检测规则
+                    // mobile_rule : 'mobile_required'
+                }
+            });
+        </script>
+    </main>
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
