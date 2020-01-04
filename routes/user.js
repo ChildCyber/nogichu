@@ -2,6 +2,58 @@ const express = require('express');
 const router = express.Router();
 
 /**
+ * 用户登录页
+ */
+router.route('/login')
+    .all(Auth.loggedIn)
+    .get((req, res) => {
+      res.render('user/login.ejs');
+    })
+    .post((req, res) => {
+      const db = req.app.locals.db;
+      let postData = req.body;
+      let phone = postData.phone || null;
+      let password = postData.password || null;
+
+      function getUser() {
+        return db.collection('user').findOne({'phone': phone, 'password': util.hashPassword(password)});
+      }
+
+      function getProfile() {
+        return db.collection('profile').findOne({'phone': phone});
+      }
+
+      function getPremium() {
+        return db.collection('premium').findOne({'phone': phone});
+      }
+
+      Promise.all([getUser(), getProfile(), getPremium()])
+          .then(data => {
+            let [user, profile, premium] = data;
+            if (user != null) {
+              req.session.regenerate((err) => {
+                if (err) {
+                  console.log(err);
+                  res.send('登录失败，请稍后重试');
+                }
+                req.session.logined = true;
+                req.session.phone = phone;
+                req.session.user = profile ? profile.name : null;
+                req.session.premium = premium;
+                // 登录成功
+                res.redirect('/mypage');
+              });
+            } else {
+              res.render('user/login.ejs', {'err': '您的信息输入错误，请检查后重新输入', 'phone': phone});
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            res.render('user/login.ejs', {'err': '登录失败，请稍后重试', 'phone': phone});
+          });
+    });
+
+/**
  * 用户注册页
  */
 router.route('/register')
