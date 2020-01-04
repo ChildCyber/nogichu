@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Auth = require('../middlewares/auth');
+const util = require('../common/util');
 
 /**
  * 用户登录页
@@ -105,6 +107,26 @@ router.route('/register')
               }
             });
       }
+    });
+
+/**
+ * 退出登录
+ */
+router.route('/logout')
+    .get((req, res) => {
+        res.status(405).render('405.ejs');
+    })
+    .post((req, res, next) => {
+        if (req.session) {
+            // delete session object
+            req.session.destroy((err) => {
+                if (err) {
+                    next(err);
+                } else {
+                    res.redirect('/');
+                }
+            });
+        }
     });
 
 module.exports = router;
