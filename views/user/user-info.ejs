@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <%- include('../header.ejs') %>
+
+    <main class="main-content">
+
+        <form class="register-form" method="POST" action="/user-info/update">
+            <div class="grid-container">
+                <div class="grid-x grid-padding-y">
+                    <div class="medium-6 medium-offset-3 cell email">
+
+                        <% if (locals.info_err) { %>
+                            <div class="callout small alert text-center" id="nameHelpText">
+                                <p><%= info_err %></p>
+                            </div>
+                        <% } %>
+
+                        <h4 class="text-center">个人中心</h4>
+                        <hr>
+                        <input type="hidden" name="_token" value="O0pYRyzsvMduYgblHfsq4IjFyxBALvfuNhmfYLYI">
+
+                        <!-- 基本信息部分 -->
+                        <h5 class="type-sidelines custom-2">
+                            <span>基本信息</span>
+                        </h5>
+
+                        <% if(locals.user) { %>
+                            <% if(locals.user.email) { %>
+                                <label for="email"> 邮箱
+                                    <p><%= user.email %></p>
+                                    <label>邮箱修改
+                                        <input id="email_edit" type="checkbox" value="1" name="email_edit">
+                                    </label>
+                                    <input id="email" type="email" name="email" value="" aria-describedby="emailHelpText" style="display: none;">
+                                </label>
+                            <% } else { %>
+                                <label for="email"> 邮箱
+                                    <input id="email" type="email" name="email" value="" aria-describedby="emailHelpText">
+                                </label>
+                            <% } %>
+                        <% } else { %>
+                            <label for="email"> 邮箱
+                                <input id="email" type="email" name="email" value="" aria-describedby="emailHelpText">
+                            </label>
+                        <% } %>
+
+                        <label for="name"> 昵称 <span style="color:red">（请注意：昵称一经确认，无法修改）</span>
+                            <% if(locals.user) { %>
+                                <p><%= user.name %></p>
+                            <% } else { %>
+                                <input id="name" type="text" name="name" value="" aria-describedby="nameHelpText">
+                            <% } %>
+                        </label>
+
+                        <div class="grid-x">
+                            <div class="small-12 medium-6 large-6 cell ">
+                                <label for="first_name"> 姓
+                                    <% if(locals.user) { %>
+                                        <input id="first_name" type="text" class="form-control" name="first_name" value="<%= user.first_name %>" aria-describedby="nameHelpText" autofocus="">
+                                    <% } else { %>
+                                        <input id="first_name" type="text" class="form-control" name="first_name" value="" aria-describedby="nameHelpText" autofocus="">
+                                    <% } %>
+                                </label>
+                            </div>
+                            <div class="small-12 medium-6 large-6  cell">
+                                <label for="last_name"> 名
+                                    <% if(locals.user) { %>
+                                        <input id="last_name" type="text" class="form-control" name="last_name" value="<%= user.last_name %>" aria-describedby="nameHelpText" autofocus="">
+                                    <% } else { %>
+                                        <input id="last_name" type="text" class="form-control" name="last_name" value="" aria-describedby="nameHelpText" autofocus="">
+                                    <% } %>
+                                </label>
+                            </div>
+                        </div>
+
+                        <fieldset class="large-5 cell">
+                            <legend>性別</legend>
+                            <% if(locals.user) { %>
+                                <% if(locals.user.gender) { %>
+                                    <% if(locals.user.gender === 'man') { %>
+                                        <input type="radio" name="gender" value="man" id="man" checked> <label for="man">男性</label>
+                                        <input type="radio" name="gender" value="woman" id="woman"> <label for="woman">女性</label>
+                                    <% } else { %>
+                                        <input type="radio" name="gender" value="man" id="man"> <label for="man">男性</label>
+                                        <input type="radio" name="gender" value="woman" id="woman" checked> <label for="woman">女性</label>
+                                    <% } %>
+                                <% } else { %>
+                                    <input type="radio" name="gender" value="man" id="man"> <label for="man">男性</label>
+                                    <input type="radio" name="gender" value="woman" id="woman"> <label for="woman">女性</label>
+                                <% } %>
+                            <% } else { %>
+                                <input type="radio" name="gender" value="man" id="man"> <label for="man">男性</label>
+                                <input type="radio" name="gender" value="woman" id="woman"> <label for="woman">女性</label>
+                            <% } %>
+
+
+                        </fieldset>
+
+                        <label for="birthday"> 出生日期
+                            <% if(locals.user) { %>
+                                <input id="birthday" type="date" name="birthday" value="<%= user.birthday %>">
+                            <% } else { %>
+                                <input id="birthday" type="date" name="birthday" value="">
+                            <% } %>
+                        </label>
+
+                        <label for="jobs"> 职业
+                            <% if(locals.user) { %>
+                                <input id="jobs" type="text" name="jobs" value="<%= user.jobs %>">
+                            <% } else { %>
+                                <input id="jobs" type="text" name="jobs" value="">
+                            <% } %>
+                        </label>
+
+                        <!-- 现居住地部分 -->
+                        <h5 class="type-sidelines custom-2">
+                            <span>现居住地</span>
+                        </h5>
+
+                        <label for="country"> 国
+                            <select name="country">
+                                <option value="china" selected="selected">中国</option>
+                            </select>
+                        </label>
+
+                        <div class="grid-x">
+                            <div class="small-12 medium-6 large-6 cell ">
+                                <label for="prefecture"> 省
+                                    <% if(locals.user) { %>
+                                        <input id="prefecture" type="text" class="form-control" name="prefecture" value="<%= user.prefecture %>" aria-describedby="nameHelpText" autofocus="">
+                                    <% } else { %>
+                                        <input id="prefecture" type="text" class="form-control" name="prefecture" value="" aria-describedby="nameHelpText" autofocus="">
+                                    <% } %>
+                                </label>
+                            </div>
+                            <div class="small-12 medium-6 large-6  cell">
+                                <label for="city"> 市
+                                    <% if(locals.user) { %>
+                                        <input id="name" type="text" class="form-control" name="city" value="<%= user.city %>" aria-describedby="nameHelpText" autofocus="">
+                                    <% } else { %>
+                                        <input id="name" type="text" class="form-control" name="city" value="" aria-describedby="nameHelpText" autofocus="">
+                                    <% } %>
+                                </label>
+                            </div>
+                        </div>
+
+                        <label for="block"> 街道地址
+                            <% if(locals.user) { %>
+                                <input id="block" type="text" name="block" value="<%= user.block %>" aria-describedby="emailHelpText">
+                            <% } else { %>
+                                <input id="block" type="text" name="block" value="" aria-describedby="emailHelpText">
+                            <% } %>
+                        </label>
+
+                        <!-- 证件类型部分 -->
+                        <h5 class="type-sidelines custom-2">
+                            <span>证件类型</span>
+                        </h5>
+                        <label for="proof"> 证件类型选择
+                            <select name="proof">
+                                <option value="identification" selected="selected">身份证</option>
+                                <option value="passport">护照</option>
+                            </select>
+                        </label>
+
+                        <label for="proof_number"> 证件号码
+                            <% if(locals.user) { %>
+                                <% if(locals.user.proof_number) { %>
+                                    <label>证件号码修改
+                                        <input id="proof_number_edit" type="checkbox" value="1" name="proof_number_edit">
+                                    </label>
+                                    <input id="proof_number" type="text" name="proof_number" value="" aria-describedby="emailHelpText" style="display: none;">
+                                <% } else { %>
+                                    <input id="proof_number" type="text" name="proof_number" value="" aria-describedby="emailHelpText">
+                                <% } %>
+                            <% } else { %>
+                                <input id="proof_number" type="text" name="proof_number" value="" aria-describedby="emailHelpText">
+                            <% } %>
+                        </label>
+
+                        <label for="proof_expiration"> 证件有限期
+                            <% if(locals.user) { %>
+                                <input id="proof_expiration" type="date" name="proof_expiration" value="<%= user.proof_expiration %>" aria-describedby="emailHelpText">
+                            <% } else { %>
+                                <input id="proof_expiration" type="date" name="proof_expiration" value="" aria-describedby="emailHelpText">
+                            <% } %>
+                        </label>
+                        <p>※为了您能参加乃木坂46中国会员站的活动，请确保您的证件准确有效。</p>
+
+                        <!-- 喜欢成员部分 -->
+                        <h5 class="type-sidelines custom-2">
+                            <span>喜欢成员</span>
+                        </h5>
+
+
+                        <% if(locals.member_err) { %>
+                            <div class="callout small alert text-center" id="nameHelpText">
+                                <p><%= member_err %></p>
+                            </div>
+                        <% } %>
+
+                        <div class="grid-x">
+                            <div class="small-12 medium-4 large-4 cell ">
+                                <label for="like_1"> 首推
+                                    <select name="like_1">
+                                        <option value="0"></option>
+                                        <%console.log(locals.members)%>
+                                        <% members.forEach(member=>{ %>
+                                            <% if(locals.user) { %>
+                                                <% if(locals.user.oshimen[0] == member.id) { %>
+                                                    <option value="<%= member.id %>" selected><%= member.name %></option>
+                                                <% } else { %>
+                                                    <option value="<%= member.id %>"><%= member.name %></option>
+                                                <% } %>
+                                            <% } else { %>
+                                                <option value="<%= member.id %>"><%= member.name %></option>
+                                            <% } %>
+                                        <% }) %>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="small-12 medium-4 large-4 cell ">
+                                <label for="like_2"> 二推
+                                    <select name="like_2">
+                                        <option value="-1"></option>
+                                        <% members.forEach(member=>{ %>
+                                            <% if(locals.user) { %>
+                                                <% if(locals.user.oshimen[1] == member.id) { %>
+                                                    <option value="<%= member.id %>" selected><%= member.name %></option>
+                                                <% } else { %>
+                                                    <option value="<%= member.id %>"><%= member.name %></option>
+                                                <% } %>
+                                            <% } else { %>
+                                                <option value="<%= member.id %>"><%= member.name %></option>
+                                            <% } %>
+                                        <% }) %>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="small-12 medium-4 large-4 cell ">
+                                <label for="like_3"> 三推
+                                    <select name="like_3">
+                                        <option value="-2"></option>
+                                        <% members.forEach(member=>{ %>
+                                            <% if(locals.user) { %>
+                                                <% if(locals.user.oshimen[2] == member.id) { %>
+                                                    <option value="<%= member.id %>" selected><%= member.name %></option>
+                                                <% } else { %>
+                                                    <option value="<%= member.id %>"><%= member.name %></option>
+                                                <% } %>
+                                            <% } else { %>
+                                                <option value="<%= member.id %>"><%= member.name %></option>
+                                            <% } %>
+                                        <% }) %>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--<div class="grid-x">-->
+                        <!--<div class="small-12 medium-4 large-4 cell ">-->
+                        <!--<label for="like_1"> 首推 <select name="like_1"><option value="0"></option><option value="15">秋元 真夏</option><option value="16">生田 绘梨花</option><option value="17">伊藤 纯奈</option><option value="18">伊藤 理理杏</option><option value="19">井上 小百合</option><option value="20">岩本 莲加</option><option value="21">梅泽 美波</option><option value="22">大园 桃子</option><option value="23">北野 日奈子</option><option value="24">久保 史绪里</option><option value="25" selected="selected">斋藤 飞鸟</option><option value="26">阪口 珠美</option><option value="27">佐佐木 琴子</option><option value="28">佐藤 枫</option><option value="29">白石 麻衣</option><option value="30">新内 真衣</option><option value="31">铃木 绚音</option><option value="32">高山 一实</option><option value="33">寺田 兰世</option><option value="34">中田 花奈</option><option value="35">中村 丽乃</option><option value="36">樋口 日奈</option><option value="37">星野 南</option><option value="38">堀 未央奈</option><option value="39">松村 沙友理</option><option value="40">向井 叶月</option><option value="41">山崎 怜奈</option><option value="42">山下 美月</option><option value="43">吉田 绫乃克莉丝蒂</option><option value="44">与田 祐希</option><option value="45">渡边 米丽爱</option><option value="46">和田 真彩</option><option value="47">远藤 樱</option><option value="48">贺喜 遥香</option><option value="49">挂桥 沙耶香</option><option value="50">金川 纱耶</option><option value="51">北川 悠理</option><option value="52">柴田 柚菜</option><option value="53">清宫 玲</option><option value="54">田村 真佑</option><option value="55">筒井 彩萌</option><option value="56">早川 圣来</option><option value="57">矢久保 美绪</option></select> </label>-->
+                        <!--</div>-->
+                        <!--<div class="small-12 medium-4 large-4 cell ">-->
+                        <!--<label for="like_2"> 二推 <select name="like_2"><option value="-1"></option><option value="15">秋元 真夏</option><option value="16">生田 绘梨花</option><option value="17">伊藤 纯奈</option><option value="18">伊藤 理理杏</option><option value="19">井上 小百合</option><option value="20">岩本 莲加</option><option value="21">梅泽 美波</option><option value="22">大园 桃子</option><option value="23">北野 日奈子</option><option value="24">久保 史绪里</option><option value="25">斋藤 飞鸟</option><option value="26">阪口 珠美</option><option value="27">佐佐木 琴子</option><option value="28">佐藤 枫</option><option value="29">白石 麻衣</option><option value="30">新内 真衣</option><option value="31">铃木 绚音</option><option value="32">高山 一实</option><option value="33">寺田 兰世</option><option value="34">中田 花奈</option><option value="35">中村 丽乃</option><option value="36">樋口 日奈</option><option value="37">星野 南</option><option value="38">堀 未央奈</option><option value="39">松村 沙友理</option><option value="40">向井 叶月</option><option value="41">山崎 怜奈</option><option value="42">山下 美月</option><option value="43">吉田 绫乃克莉丝蒂</option><option value="44">与田 祐希</option><option value="45">渡边 米丽爱</option><option value="46">和田 真彩</option><option value="47">远藤 樱</option><option value="48">贺喜 遥香</option><option value="49">挂桥 沙耶香</option><option value="50">金川 纱耶</option><option value="51">北川 悠理</option><option value="52">柴田 柚菜</option><option value="53">清宫 玲</option><option value="54">田村 真佑</option><option value="55">筒井 彩萌</option><option value="56" selected="selected">早川 圣来</option><option value="57">矢久保 美绪</option></select> </label>-->
+                        <!--</div>-->
+                        <!--<div class="small-12 medium-4 large-4 cell ">-->
+                        <!--<label for="like_3"> 三推 <select name="like_3"><option value="-2"></option><option value="15">秋元 真夏</option><option value="16">生田 绘梨花</option><option value="17">伊藤 纯奈</option><option value="18">伊藤 理理杏</option><option value="19">井上 小百合</option><option value="20">岩本 莲加</option><option value="21">梅泽 美波</option><option value="22">大园 桃子</option><option value="23">北野 日奈子</option><option value="24">久保 史绪里</option><option value="25">斋藤 飞鸟</option><option value="26">阪口 珠美</option><option value="27">佐佐木 琴子</option><option value="28">佐藤 枫</option><option value="29">白石 麻衣</option><option value="30">新内 真衣</option><option value="31">铃木 绚音</option><option value="32" selected="selected">高山 一实</option><option value="33">寺田 兰世</option><option value="34">中田 花奈</option><option value="35">中村 丽乃</option><option value="36">樋口 日奈</option><option value="37">星野 南</option><option value="38">堀 未央奈</option><option value="39">松村 沙友理</option><option value="40">向井 叶月</option><option value="41">山崎 怜奈</option><option value="42">山下 美月</option><option value="43">吉田 绫乃克莉丝蒂</option><option value="44">与田 祐希</option><option value="45">渡边 米丽爱</option><option value="46">和田 真彩</option><option value="47">远藤 樱</option><option value="48">贺喜 遥香</option><option value="49">挂桥 沙耶香</option><option value="50">金川 纱耶</option><option value="51">北川 悠理</option><option value="52">柴田 柚菜</option><option value="53">清宫 玲</option><option value="54">田村 真佑</option><option value="55">筒井 彩萌</option><option value="56">早川 圣来</option><option value="57">矢久保 美绪</option></select> </label>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="vspace-2"></div>
+
+                        <button type="submit" class="button expanded">保存资料</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <script>
+            $(function() {
+                <% if(locals.user && locals.user.email) { %>
+                $("#email").hide();
+                <% } %>
+
+                <% if(locals.user && locals.user.proof_number) { %>
+                $("#proof_number").hide();
+                <% } %>
+
+                $('[name="email_edit"]').change(function() {
+                    if ($('[name="email_edit"]').prop('checked') == true ) {
+                        $("#email").show();
+                    } else {
+                        $("#email").hide();
+                    }
+                });
+
+                $('[name="proof_number_edit"]').change(function() {
+                    if ($('[name="proof_number_edit"]').prop('checked') == true ) {
+                        $("#proof_number").show();
+                    } else {
+                        $("#proof_number").hide();
+                    }
+                });
+            });
+        </script>
+
+    </main>
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
