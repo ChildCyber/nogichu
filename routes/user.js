@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Auth = require('../middlewares/auth');
 const util = require('../common/util');
+const moment = require('moment');
+moment.locale('zh-cn');
 
 /**
  * 用户登录页
@@ -108,6 +110,72 @@ router.route('/register')
             });
       }
     });
+
+/**
+ * 个人中心
+ */
+router.get('/user-info', Auth.notLoggedIn, (req, res) => {
+    const db = req.app.locals.db;
+
+    function getMember() {
+        return db.collection('member').find().sort({id: 1}).project({id: 1, name: 1, _id: 0}).toArray();
+    }
+
+    function getUserInfo() {
+        return db.collection('profile').findOne({'phone': req.session.phone});
+    }
+
+    Promise.all([getMember(), getUserInfo()])
+        .then(data => {
+            let [members, user] = data;
+            if (user) {
+                // 隐藏用户信息
+                let email = user.email || '';
+                let proof_number = user.proof_number || '';
+                if (email) {
+                    let emailArr = email.split('@');
+                    user.email = emailArr[0].slice(0, emailArr[0].length - 4) + '****@' + emailArr[1];
+                }
+                if (proof_number) {
+                    user.proof_number = proof_number.slice(0, 3) + '******' + proof_number.substring(9);
+                }
+            }
+
+            // 验证修改页面传递过来的错误信息
+            let nameErr = req.session.info_err || '';
+            let nameHelpText = req.session.member_err || '';
+            if (nameErr) {
+                delete req.session.info_err;
+                res.render('user/user-info.ejs', {
+                    'user': user,
+                    'members': members,
+                    'err': nameErr,
+                    'login': req.session.logined,
+                    'premium': req.session.premium
+                });
+            }
+            if (nameHelpText) {
+                delete req.session.member_err;
+                res.render('user/user-info.ejs', {
+                    'user': user,
+                    'members': members,
+                    'member_err': nameHelpText,
+                    'login': req.session.logined,
+                    'premium': req.session.premium
+                });
+            }
+            res.render('user/user-info.ejs', {
+                'user': user,
+                'members': members,
+                'login': req.session.logined,
+                'premium': req.session.premium
+            })
+        })
+        .catch(err => {
+            console.error(err);
+            res.send('程序出错，请稍后重试')
+        });
+});
 
 /**
  * 退出登录
