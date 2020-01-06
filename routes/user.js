@@ -178,6 +178,94 @@ router.get('/user-info', Auth.notLoggedIn, (req, res) => {
 });
 
 /**
+ * 个人中心信息修改
+ */
+router.route('/user-info/update')
+    .get((req, res) => {
+        res.render('405.ejs');
+    })
+    .post(Auth.notLoggedIn, (req, res) => {
+        const db = req.app.locals.db;
+        let postData = req.body;
+        // 参数验证
+        let name = postData.name || req.session.user; // 必需字段
+        // let email = postData.email || null;
+        // let first_name = postData.first_name || null;
+        // let last_name = postData.last_name || null;
+        // let gender = postData.gender || null;
+        // let birthday = postData.birthday || null;
+        // let jobs = postData.jobs || null;
+        // let country = postData.country || null;
+        // let prefecture = postData.prefecture || null;
+        // let city = postData.city || null;
+        // let block = postData.block || null;
+        // let proof = postData.proof || null;
+        // let proof_number = postData.proof_number || null;
+        // let proof_expiration = postData.proof_expiration || null;
+        let like_1 = postData.like_1 || 0;
+        let like_2 = postData.like_2 || -1;
+        let like_3 = postData.like_3 || -2;
+
+        // deep copy
+        let profile = Object.assign({}, postData);
+        let oshimen = [postData.like_1, postData.like_2, postData.like_3];
+        profile.phone = req.session.phone;
+        profile.oshimen = oshimen.map(item => {
+            return parseInt(item)
+        });
+        // 删除多余属性
+        delete profile.like_1;
+        delete profile.like_2;
+        delete profile.like_3;
+        delete profile._token;
+
+        // todo 把这里和模板里的傻逼逻辑改了
+        if (!name) {
+            req.session.info_err = '用户修改非本人信息';
+            return res.redirect('/user-info');
+        }
+        if (like_1 === like_2) {
+            req.session.member_err = '二推(喜欢成员) 必须不同于 首推(喜欢成员)';
+            return res.redirect('/user-info');
+        }
+        if (like_1 === like_3) {
+            req.session.member_err = '三推(喜欢成员) 必须不同于 首推(喜欢成员)';
+            return res.redirect('/user-info');
+        }
+        if (like_2 === like_3) {
+            req.session.member_err = '三推(喜欢成员) 必须不同于 二推(喜欢成员)';
+            return res.redirect('/user-info');
+        }
+        db.collection('profile').findOne({'phone': req.session.phone})
+            .then(data => {
+                if (data) {
+                    // 修改
+                    if (data.name !== name) {
+                        return new Promise((resolve, reject) => {
+                            reject('帐号信息不匹配');
+                        })
+                    } else {
+                        return db.collection('profile').update({name: name}, {$set: profile}, {upsert: true});
+                    }
+                } else {
+                    // 插入
+                    return db.collection('profile').insert(profile);
+                }
+            })
+            .then(data => {
+                console.log(data.result);
+                // 添加session.user，跳转用户主页
+                req.session.user = name;
+                res.redirect('/mypage');
+            })
+            .catch(err => {
+                console.error('用户修改非本人信息');
+                req.session.info_err = err;
+                res.redirect('/user-info');
+            });
+    });
+
+/**
  * 退出登录
  */
 router.route('/logout')
