@@ -58,6 +58,66 @@ router.route('/login')
     });
 
 /**
+ * 用户：我的主页
+ */
+router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
+    const db = req.app.locals.db;
+    db.collection('profile').findOne({'phone': req.session.phone})
+        .then(data => {
+            if (data.email) {
+                let emailArr = data.email.split('@');
+                data.email = emailArr[0].slice(0, emailArr[0].length - 4) + '****@' + emailArr[1];
+            }
+            // if (data.birthday) {
+            //     data.birthday = (new Date(data.birthday).toLocaleString()).slice(0, -3)
+            // }
+            if (req.session.premium) {
+                premium = Object.assign({}, req.session.premium);
+                premium.remain = moment(premium.expired_at).diff(moment(), 'days');
+                premium.expired_at = moment(premium.expired_at).format('lll');
+            }
+            return new Promise(resolve => {
+                console.log('get user info');
+                resolve([data, db.collection('photos').find({'id': {$in: data.oshimen}}).project({
+                    id: 1,
+                    name: 1,
+                    photo: 1,
+                    _id: 0
+                }).toArray()])
+            })
+                .then(async data => {
+                    console.log('get user info & member info', data);
+                    let oshimen = await data[1];
+                    let user = data[0];
+                    console.log('get member info');
+
+                    // 用户推数据
+                    if (oshimen) {
+                        // 如果有推，推数据添加图片信息
+                        for (let i = 0; i < oshimen.length; i++) {
+                            console.log(Object.keys(oshimen));
+                            // oshimen[i].photo = new Buffer(oshimen[i].photo.buffer, 'binary').toString('base64');
+                            // 用户只填写一个推，根据user.oshimen的下标修改对应推信息
+                            let index = user.oshimen.indexOf(oshimen[i].id);
+                            if (index !== -1) {
+                                user.oshimen[index] = oshimen[i];
+                            }
+                        }
+                    }
+
+                    res.render('user/mypage.ejs', {
+                        'login': req.session.logined,
+                        'user': user,
+                        'premium': premium
+                    });
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        });
+});
+
+/**
  * 用户注册页
  */
 router.route('/register')
