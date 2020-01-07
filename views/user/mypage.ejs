@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <%- include('../header.ejs') %>
+
+    <main class="main-content">
+
+
+
+        <div class="grid-container">
+
+            <div class="text-center">
+                <img src="/images/mypage/my_page_pic.png" style="height: 100px; margin-top: 30px; margin-bottom: 50px;">
+            </div>
+            <div class="grid-x grid-padding-y line-color">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <b>有效期限</b>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong">
+                    <b><%= premium.expired_at %>（剩余<%= premium.remain %>日）</b> <a class="button large line" href="/pay">续期</a>
+                </div>
+
+            </div>
+            <div class="grid-x grid-padding-y line-white">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <span class="color">昵称</span>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong"><%= user.name %></div>
+            </div>
+            <div class="grid-x grid-padding-y line-color">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <span class="color">积分</span>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong"><%= premium.point %>分</div>
+            </div>
+            <div class="grid-x grid-padding-y line-white">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <span class="color">会员编号</span>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong">NO.<%= premium.id %>
+                </div>
+            </div>
+            <div class="grid-x grid-padding-y line-color">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <span class="color">入会日期</span>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong"><%= premium.expired_at %></div>
+            </div>
+            <div class="grid-x grid-padding-y line-white">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <span class="color">出生年月</span>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong"><%= user.birthday %></div>
+            </div>
+            <div id="email" class="grid-x grid-padding-y line-color">
+                <div class="small-3 medium-3 large-3 small-offset-1 medium-offset-3 large-offset-3 align-self-middle">
+                    <span class="color">邮箱</span>
+                </div>
+                <div class="small-8 medium-6 large-6 align-self-middle strong">
+                    <%= user.email %></div>
+            </div>
+
+            <div class="vspace-5"></div>
+            <div class="grid-x text-center">
+                <div class="small-12 medium-4 large-4 cell" style="
+            	background-image: url('/images/mypage/my_page_bg_2.png');
+            	background-repeat: no-repeat;
+            	background-size:300px 300px;
+                background-position:center;
+            	height:300px;
+            	padding-top:20px;
+	       ">
+                    <div style="position: relative;
+                            background-image: url('<%= user.oshimen[0].photo%>');
+                            background-repeat: no-repeat;
+                            background-size:300px 425px;
+                            background-position:center;
+                            height:400px;
+                            padding-top:0px;
+                            margin-top:-100px;">
+                        <p style="
+    			  position: absolute;
+                  color: white;/*文字は白に*/
+                  font-weight: bold; /*太字に*/
+                  font-size: 1.5em;/*サイズ2倍*/
+                  top: 88%;
+                  left: 35%">
+                            <%= user.oshimen[0].name %>
+                        </p>
+                        <img src="/images/mypage/my_page_pic_1.png" style="height: 100px; margin-top:300px;">
+                    </div>
+                </div>
+
+                <div class="small-12 medium-4 large-4 cell" style="
+            	background-image: url('/images/mypage/my_page_bg_1.png');
+            	background-repeat: no-repeat;
+            	background-size:230px 230px;
+                background-position:center;
+            	height:300px;
+            	margin-top:50px;
+            	padding-top:0px;
+	       ">
+                    <div style="position: relative;
+                            background-image: url('<%= user.oshimen[1].photo %>');
+                            background-repeat: no-repeat;
+                            background-size:130px 184px;
+                            background-position:center;
+                            height:500px;
+                            padding-top:0px;
+                            margin-top:-100px;">
+                        <p style="
+    			  position: absolute;
+                  color: white;/*文字は白に*/
+                  font-weight: bold; /*太字に*/
+                  font-size: 1.5em;/*サイズ2倍*/
+                  top: 65%;
+                  left: 35%">
+                            <%= user.oshimen[1].name %>
+                        </p>
+                        <img src="/images/mypage/my_page_pic_2.png" style="height: 70px; margin-top:300px;">
+                    </div>
+                </div>
+
+                <div class="small-12 medium-4 large-4 cell" style="
+            	background-image: url('/images/mypage/my_page_bg_1.png');
+            	background-repeat: no-repeat;
+            	background-size:230px 230px;
+                background-position:center;
+            	height:300px;
+            	margin-top:50px;
+            	padding-top:0px;
+	       ">
+                    <div style="position: relative;
+                            background-image: url('<%= user.oshimen[2].photo %>');
+                            background-repeat: no-repeat;
+                            background-size:130px 184px;
+                            background-position:center;
+                            height:500px;
+                            padding-top:0px;
+                            margin-top:-100px;">
+                        <p style="
+    			  position: absolute;
+                  color: white;/*文字は白に*/
+                  font-weight: bold; /*太字に*/
+                  font-size: 1.5em;/*サイズ2倍*/
+                  top: 65%;
+                  left: 35%">
+                            <%= user.oshimen[2].name %>
+                        </p>
+                        <img src="/images/mypage/my_page_pic_3.png" style="height: 70px; margin-top:300px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="vspace-5"></div>
+            <div class="text-center">
+                <a class="button large mypage" href="/user-info">个人中心</a><br>
+                <a class="button large mypage" onclick="window.alert('即将上线，敬请期待'); return false;">门票抽选</a>
+                <!--
+                <a class="button large mypage" href="/early-ticket/index">门票抽选</a>
+                 -->
+            </div>
+
+
+        </div>
+
+    </main>
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
