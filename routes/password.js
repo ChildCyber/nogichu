@@ -177,4 +177,53 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
             })
     });
 
+/**
+ * 发送重置密码邮件
+ */
+router.post('/password/email', (req, res) => {
+    const db = req.app.locals.db;
+    let postData = req.body;
+    // 参数校验
+    let email = postData.email || null;
+    if (!email) {
+        req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
+        return res.redirect('/password/reset')
+    }
+
+    // 根据email查询profile，根据email生成token，发送邮件
+    let token = util.randomToken();
+    db.collection('profile').findOne({'email': email})
+        .then(data => {
+            if (data) {
+                return db.collection('mail_token').insertOne({
+                    'email': email,
+                    'token': token,
+                    'created_at': new Date(),
+                    'phone': data.phone,
+                });
+            } else {
+                req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
+                return res.redirect('/password/reset')
+            }
+        })
+        .then(data => {
+            if (data) {
+                req.session.password_msg = {'sendHelpText': '密码重置邮件已发送到您的邮箱！'};
+                let port = req.app.get('env') === 'development' ? ':3000' : '';
+                let url = req.protocol + '://' + req.hostname + port + '/password/reset/' + token + '?email=' + email;
+                console.log(url);
+                mail(email, url);
+                res.redirect('/password/reset');
+            } else {
+                req.session.password_msg = {'sendHelpText': '邮件发送失败 请稍后重试！'};
+                res.redirect('/password/reset');
+            }
+        })
+        .catch(err => {
+            console.warn(err);
+            req.session.password_msg = {'sendHelpText': '邮件发送失败 请稍后重试！'};
+            res.redirect('/password/reset');
+        });
+});
+
 module.exports = router;
