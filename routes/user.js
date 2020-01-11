@@ -305,6 +305,10 @@ router.route('/user-info/update')
                             reject('帐号信息不匹配');
                         })
                     } else {
+                        // 迷惑行为
+                        if (!profile.email) {
+                            delete profile.email;
+                        }
                         return db.collection('profile').update({name: name}, {$set: profile}, {upsert: true});
                     }
                 } else {
