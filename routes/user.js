@@ -309,6 +309,9 @@ router.route('/user-info/update')
                         if (!profile.email) {
                             delete profile.email;
                         }
+                        if (!profile.proof_number) {
+                            delete profile.proof_number;
+                        }
                         return db.collection('profile').update({name: name}, {$set: profile}, {upsert: true});
                     }
                 } else {

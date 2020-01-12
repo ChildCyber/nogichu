@@ -44,6 +44,7 @@ app.use('/', require('./routes/pay'));
 app.use('/nogizaka-member', require('./routes/member'));
 app.use('/page', require('./routes/page'));
 app.use('/blog', require('./routes/blog'));
+app.use('/ticket', require('./routes/ticket'));
 
 /**
  * 404页面

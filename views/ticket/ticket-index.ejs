@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+<%- include('../bodycommon.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="header-site-search" data-toggle-search>
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell medium-8 medium-offset-2">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="input-group">
+                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for..." />
+                            <div class="input-group-button">
+                                <input type="submit" class="button dark" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.cell -->
+            </div>
+            <!-- /.grid -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.header-site-search -->
+
+    <% if (locals.user!=undefined) {%>
+        <%- include('../login-header.ejs') %>
+    <%} else {%>
+        <%- include('../header.ejs') %>
+    <%}%>%>
+
+
+    <main class="main-content">
+
+        <div class="grid-container">
+            <div class="vspace-2"></div>
+            <h4 class="text-center">先行门票抽选报名</h4>
+            <hr>
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="50">ID</th>
+                        <th>场次</th>
+                        <th width="150"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="/ticket/index-content/1">乃木坂46 8th Year BIRTHDAY Live（举办地：日本爱知县名古屋）</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
