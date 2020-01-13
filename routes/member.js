@@ -42,7 +42,8 @@ router.get('/index', (req, res) => {
                 'login': req.session.logined,
                 'premium': req.session.premium,
                 'yonKiSei': yonKiSei,
-                'members': members
+                'members': members,
+                'csrf': req.csrfToken()
             });
         })
         .catch(err => {
@@ -63,21 +64,23 @@ router.get('/view/:id', (req, res) => {
                 member.photo = new Buffer(data.photo.buffer, 'binary').toString('base64');
                 res.render('member/member-detail.ejs', {
                     'member': member,
-                    'user': req.session.user,
                     'login': req.session.logined,
-                    'premium': req.session.premium
+                    'user': req.session.user,
+                    'premium': req.session.premium,
+                    'csrf': req.csrfToken()
                 });
             } else {
                 res.status(404).render('404.ejs', {
                     'login': req.session.logined,
                     'user': req.session.user,
-                    'premium': req.session.premium
+                    'premium': req.session.premium,
+                    'csrf': req.csrfToken()
                 });
             }
         })
         .catch(err => {
             console.error(err);
-            res.send('error')
+            res.send('程序异常，请稍后重试')
         });
 });
 

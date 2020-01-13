@@ -43,7 +43,7 @@
                 <div class="grid-x grid-padding-y">
                     <div class="medium-6 medium-offset-3 cell email">
                         <h4 class="text-center">账号注册</h4>
-                        <input type="hidden" name="_token" value="hjWx88FpRjuMQMq12m9RHCzD8pPtadUZahMnwrDK">
+                        <input type="hidden" name="_csrf" value="<%= csrf %>">
 
                         <% if (locals.phoneHelpText!=undefined) { %>
                             <div class="callout small alert text-center" id="nameHelpText">

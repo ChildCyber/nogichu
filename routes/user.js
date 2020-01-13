@@ -11,7 +11,7 @@ moment.locale('zh-cn');
 router.route('/login')
     .all(Auth.loggedIn)
     .get((req, res) => {
-        res.render('user/login.ejs');
+        res.render('user/login.ejs', {'csrf': req.csrfToken()});
     })
     .post((req, res) => {
         const db = req.app.locals.db;
@@ -38,7 +38,11 @@ router.route('/login')
                     req.session.regenerate((err) => {
                         if (err) {
                             console.log(err);
-                            res.send('登录失败，请稍后重试');
+                            res.render('user/login.ejs', {
+                                'err': '登录失败，请稍后重试',
+                                'phone': phone,
+                                'csrf': req.csrfToken()
+                            });
                         }
                         req.session.logined = true;
                         req.session.phone = phone;
@@ -48,12 +52,12 @@ router.route('/login')
                         res.redirect('/mypage');
                     });
                 } else {
-                    res.render('user/login.ejs', {'err': '您的信息输入错误，请检查后重新输入', 'phone': phone});
+                    res.render('user/login.ejs', {'err': '您的信息输入错误，请检查后重新输入', 'phone': phone, 'csrf': req.csrfToken()});
                 }
             })
             .catch((err) => {
                 console.error(err);
-                res.render('user/login.ejs', {'err': '登录失败，请稍后重试', 'phone': phone});
+                res.render('user/login/ejs', {'err': '登录失败，请稍后重试', 'phone': phone, 'csrf': req.csrfToken()});
             });
     });
 
@@ -87,7 +91,6 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                 }).toArray()])
             })
                 .then(async data => {
-                    console.log('get user info & member info', data);
                     let oshimen = await data[1];
                     let user = data[0];
                     console.log('get member info');
@@ -109,7 +112,8 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                     res.render('user/mypage.ejs', {
                         'login': req.session.logined,
                         'user': user,
-                        'premium': premium
+                        'premium': premium,
+                        'csrf': req.csrfToken()
                     });
                 })
                 .catch(err => {
@@ -124,7 +128,7 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
 router.route('/register')
     .all(Auth.loggedIn)
     .get((req, res) => {
-        res.render('user/register.ejs');
+        res.render('user/register.ejs', {'csrf': req.csrfToken()});
     })
     .post((req, res) => {
         // 注册成功就将当前用户登录
@@ -154,6 +158,7 @@ router.route('/register')
 
         if (Object.keys(err).length !== 0) {
             Object.assign(err, postData);
+            err.csrf = req.csrfToken();
             res.render('user/register.ejs', err)
         } else {
             db.collection('user').findOne({'phone': phone})
@@ -166,7 +171,7 @@ router.route('/register')
                         req.session.phone = phone;
                         res.redirect('/user-info');
                     } else {
-                        res.render('user/register.ejs', {'nameHelpText': '注册失败，请稍后重试'});
+                        res.render('user/register.ejs', {'nameHelpText': '注册失败，请稍后重试', 'csrf': req.csrfToken()});
                     }
                 });
         }
@@ -208,28 +213,31 @@ router.get('/user-info', Auth.notLoggedIn, (req, res) => {
             if (nameErr) {
                 delete req.session.info_err;
                 res.render('user/user-info.ejs', {
-                    'user': user,
                     'members': members,
                     'err': nameErr,
                     'login': req.session.logined,
-                    'premium': req.session.premium
+                    'user': user,
+                    'premium': req.session.premium,
+                    'csrf': req.csrfToken()
                 });
             }
             if (nameHelpText) {
                 delete req.session.member_err;
                 res.render('user/user-info.ejs', {
-                    'user': user,
                     'members': members,
                     'member_err': nameHelpText,
                     'login': req.session.logined,
-                    'premium': req.session.premium
+                    'user': user,
+                    'premium': req.session.premium,
+                    'csrf': req.csrfToken()
                 });
             }
             res.render('user/user-info.ejs', {
-                'user': user,
                 'members': members,
                 'login': req.session.logined,
-                'premium': req.session.premium
+                'user': user,
+                'premium': req.session.premium,
+                'csrf': req.csrfToken()
             })
         })
         .catch(err => {
@@ -243,7 +251,7 @@ router.get('/user-info', Auth.notLoggedIn, (req, res) => {
  */
 router.route('/user-info/update')
     .get((req, res) => {
-        res.render('405.ejs');
+        res.status(405).render('405.ejs');
     })
     .post(Auth.notLoggedIn, (req, res) => {
         const db = req.app.locals.db;
@@ -278,7 +286,7 @@ router.route('/user-info/update')
         delete profile.like_1;
         delete profile.like_2;
         delete profile.like_3;
-        delete profile._token;
+        delete profile._csrf;
 
         // todo 把这里和模板里的傻逼逻辑改了
         if (!name) {

@@ -108,7 +108,7 @@
                                     </a>
 
                                     <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                                        <input type="hidden" name="_token" value="O0pYRyzsvMduYgblHfsq4IjFyxBALvfuNhmfYLYI">
+                                        <input type="hidden" name="_csrf" value="<%= csrf %>">
                                     </form>
                                 </li>
                             </ul> <!-- /.menu -->
@@ -150,7 +150,7 @@ width:170px;" role="menuitem" class="is-dropdown-submenu-parent opens-left" aria
                                     </a>
 
                                     <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                                        <input type="hidden" name="_token" value="43tbBKFp7WDGafuuk4lcN8xDJIxXXVJgLKYXYZM7">
+                                        <input type="hidden" name="_csrf" value="<%= csrf %>">
                                     </form>
                                 </li>
                             </ul> <!-- /.menu -->

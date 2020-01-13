@@ -16,10 +16,11 @@ router.route('/user-password')
         db.collection('profile').findOne({'name': req.session.user})
             .then(data => {
                 res.render('password/reset-password.ejs', {
-                    'user': req.session.user,
+                    'email': data ? data.email : '',
                     'login': req.session.logined,
+                    'user': req.session.user,
                     'premium': req.session.premium,
-                    'email': data ? data.email : ''
+                    'csrf': req.csrfToken()
                 });
             })
     })
@@ -33,20 +34,22 @@ router.route('/user-password')
         if (password !== pc) {
             return res.render('password/reset-password.ejs', {
                 'passwordHelpText': '输入密码 二次确认不匹配',
-                'user': req.session.user,
+                'email': '',
                 'login': req.session.logined,
+                'user': req.session.user,
                 'premium': req.session.premium,
-                'email': ''
+                'csrf': req.csrfToken()
             });
         }
         // 官网未做该验证
         if (!password || password.length < 8) {
             return res.render('password/reset-password.ejs', {
                 'passwordHelpText': '输入密码 的最小长度为 8 字符',
-                'user': req.session.user,
+                'email': '',
                 'login': req.session.logined,
+                'user': req.session.user,
                 'premium': req.session.premium,
-                'email': ''
+                'csrf': req.csrfToken()
             });
         }
 
@@ -59,10 +62,11 @@ router.route('/user-password')
                 } else {
                     res.render('password/reset-password.ejs', {
                         'passwordHelpText': '用户不存在',
-                        'user': req.session.user,
+                        'email': '',
                         'login': req.session.logined,
+                        'user': req.session.user,
                         'premium': req.session.premium,
-                        'email': ''
+                        'csrf': req.csrfToken()
                     });
                 }
             })
@@ -70,10 +74,11 @@ router.route('/user-password')
                 console.log(err);
                 res.render('password/reset-password.ejs', {
                     'passwordHelpText': '密码修改失败 请稍后重试',
-                    'user': req.session.user,
+                    'email': '',
                     'login': req.session.logined,
+                    'user': req.session.user,
                     'premium': req.session.premium,
-                    'email': ''
+                    'csrf': req.csrfToken()
                 });
             });
     });
@@ -98,14 +103,15 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
         let urlArr = req.originalUrl.split('/password/reset/');
         if (req.session.password_msg) {
             let password_msg = req.session.password_msg;
+            password_msg.csrf = req.csrfToken();
             // 删除session
             delete req.session.password_msg;
             res.render('password/forget-password.ejs', password_msg);
         } else if (urlArr.length === 1) {
-            res.render('password/forget-password.ejs');
+            res.render('password/forget-password.ejs', {'csrf': req.csrfToken()});
         } else {
             let token = urlArr[1].split('?')[0];
-            res.render('password/email-password.ejs', {'token': token})
+            res.render('password/email-password.ejs', {'token': token, 'csrf': req.csrfToken()})
         }
     })
     .post((req, res) => {
@@ -118,39 +124,39 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
         let password = postData.password || null;
         let pc = postData.password_confirmation || null;
         // 错误信息
-        let passwordHelpText = '';
-        let passwordConfirmHelpText = '';
-        let emailHelpText = '';
+        // let passwordHelpText = '';
+        // let passwordConfirmHelpText = '';
+        // let emailHelpText = '';
+        let msg = Object.create(null);
         if (!password || password.length < 8) {
-            passwordHelpText = '输入密码 的最小长度为 8 字符';
+            msg.passwordHelpText = '输入密码 的最小长度为 8 字符';
         }
         if (!pc || pc.length < 8) {
-            passwordConfirmHelpText = '输入密码 的最小长度为 8 字符';
+            msg.passwordConfirmHelpText = '输入密码 的最小长度为 8 字符';
         }
         if (password !== pc) {
-            passwordHelpText = '输入密码 二次确认不匹配';
-            passwordConfirmHelpText = '输入密码 二次确认不匹配';
+            msg.passwordHelpText = '输入密码 二次确认不匹配';
+            msg.passwordConfirmHelpText = '输入密码 二次确认不匹配';
+        }
+        if (Object.keys(msg).length !== 0) {
+            msg.token = token;
+            msg.csrf = req.csrfToken();
+            res.render('password/email-password.ejs', msg)
         }
         db.collection('mail_token').findOne({'token': token})
             .then(data => {
                 if (data && data.email !== email) {
                     // email和token对应不上
-                    emailHelpText = '账号信息不存在！';
-                    return res.render('email-password.ejs', {
-                        'passwordHelpText': passwordHelpText,
-                        'passwordConfirmHelpText': passwordConfirmHelpText,
-                        'emailHelpText': emailHelpText,
-                        'token': token
-                    })
+                    msg.emailHelpText = '账号信息不存在！';
+                    msg.csrf = req.csrfToken();
+                    msg.token = token;
+                    return res.render('password/email-password.ejs', msg)
                 } else if (moment().diff(data.created_at, "hour") > 1) {
                     // token过期
-                    emailHelpText = '链接已失效！';
-                    return res.render('email-password.ejs', {
-                        'passwordHelpText': passwordHelpText,
-                        'passwordConfirmHelpText': passwordConfirmHelpText,
-                        'emailHelpText': emailHelpText,
-                        'token': token
-                    })
+                    msg.emailHelpText = '此密码重置令牌无效';
+                    msg.csrf = req.csrfToken();
+                    msg.token = token;
+                    return res.render('password/email-password.ejs', msg)
                 } else {
                     return db.collection('profile').findOne({'email': email})
                 }
@@ -168,12 +174,9 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
             })
             .catch(err => {
                 console.error(err);
-                res.render('email-password.ejs', {
-                    'passwordHelpText': passwordHelpText,
-                    'passwordConfirmHelpText': passwordConfirmHelpText,
-                    'emailHelpText': '程序出错，请稍后重试',
-                    'token': token
-                })
+                msg.token = token;
+                msg.csrf = req.csrfToken();
+                res.render('password/email-password.ejs', msg)
             })
     });
 
