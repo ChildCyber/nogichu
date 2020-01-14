@@ -8,7 +8,8 @@ router.get('/index', (req, res) => {
     res.render('ticket/ticket-index.ejs', {
         'login': req.session.logined,
         'user': req.session.user,
-        'premium': req.session.premium
+        'premium': req.session.premium,
+        'csrf': req.csrfToken()
     });
 });
 
@@ -19,7 +20,8 @@ router.get('/index-content/:id', (req, res) => {
     res.render('ticket/index-content.ejs', {
         'login': req.session.logined,
         'user': req.session.user,
-        'premium': req.session.premium
+        'premium': req.session.premium,
+        'csrf': req.csrfToken()
     });
 });
 
@@ -30,7 +32,8 @@ router.get('/page/:mainId/:contentId', (req, res) => {
     res.render('ticket/ticket-page.ejs', {
         'login': req.session.logined,
         'user': req.session.user,
-        'premium': req.session.premium
+        'premium': req.session.premium,
+        'csrf': req.csrfToken()
     });
 });
 

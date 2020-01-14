@@ -186,21 +186,21 @@
             <p style="language: ja; margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; text-align: left; direction: ltr; unicode-bidi: embed; mso-line-break-override: none; word-break: normal; punctuation-wrap: hanging;">&nbsp;</p>
 
             <div>
-                <form class="register-form" method="GET" action="/ticket/form/1/1">
-                    <input type="hidden" name="_token" value="t6T4FjVRlabU73OXC9GOlNOHF4rQeKcbxD4bwn9X">
+                <!--<form class="register-form" method="GET" action="/ticket/form/1/1">-->
+                    <input type="hidden" name="_csrf" value="<%= csrf %>">
 
 
                     <input name="agree" id="agree_checkbox" type="checkbox" value="1">
                     <label for="agree_checkbox">我已充分理解并同意上述须知及注意事项</label>
                     <input type="hidden" name="ticket_main_id" value="1">
                     <input type="hidden" name="ticket_content_id" value="1">
-                    <button type="submit" class="button expanded">报名先行门票抽选</button>
+                    <button type="submit" class="button expanded" id="ticket_enroll" onclick="alert('你在想peach');">报名先行门票抽选</button>
 
                     <div style="text-align: right;margin-top:30px;margin-bottom:30px;">
                         <a href="/ticket/index-content/1">返回先行申请一览</a>
                     </div>
 
-                </form>
+                <!--</form>-->
             </div>
         </div>
 

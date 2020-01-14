@@ -37,14 +37,10 @@ router.get('/index', (req, res) => {
             for (let i = 0; i < yonKiSei.length; i++) {
                 yonKiSei[i].photo = new Buffer(yonKiSei[i].photo.buffer, 'binary').toString('base64');
             }
-            res.render('member/member-index.ejs', {
-                'user': req.session.user,
-                'login': req.session.logined,
-                'premium': req.session.premium,
-                'yonKiSei': yonKiSei,
-                'members': members,
-                'csrf': req.csrfToken()
-            });
+            let ev = Object.assign({}, req.ev);
+            ev.yonKiSei = yonKiSei;
+            ev.members = members;
+            res.render('member/member-index.ejs', ev);
         })
         .catch(err => {
             console.error(err);
@@ -59,23 +55,14 @@ router.get('/view/:id', (req, res) => {
     const db = req.app.locals.db;
     db.collection('member').findOne({'id': parseInt(req.params.id)}, {projection: {_id: 0}})
         .then(data => {
+            let ev= req.ev;
             if (data) {
                 let member = Object.assign({}, data);
                 member.photo = new Buffer(data.photo.buffer, 'binary').toString('base64');
-                res.render('member/member-detail.ejs', {
-                    'member': member,
-                    'login': req.session.logined,
-                    'user': req.session.user,
-                    'premium': req.session.premium,
-                    'csrf': req.csrfToken()
-                });
+                ev.member = member;
+                res.render('member/member-detail.ejs', ev);
             } else {
-                res.status(404).render('404.ejs', {
-                    'login': req.session.logined,
-                    'user': req.session.user,
-                    'premium': req.session.premium,
-                    'csrf': req.csrfToken()
-                });
+                res.status(404).render('404.ejs', ev);
             }
         })
         .catch(err => {

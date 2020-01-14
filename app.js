@@ -8,6 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const csrf = require('csurf');
 const config = require('./common/config');
+const auth = require('./middlewares/auth');
 
 const port = process.env.PORT || 3000;
 
@@ -39,6 +40,7 @@ app.use(session({
   store: new MongoStore({url: config.mongoUrl + '/' + config.dbName})
 }));
 app.use(csrf({cookie: true}));
+app.use(auth.ejsVar);
 
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/user'));
@@ -53,12 +55,7 @@ app.use('/ticket', require('./routes/ticket'));
  * 404页面
  */
 app.get('*', (req, res) => {
-  res.status(404).render('404.ejs', {
-    'login': req.session.logined,
-    'user': req.session.user,
-    'premium': req.session.premium,
-    'csrf': req.csrfToken()
-  });
+  res.status(404).render('404.ejs', req.ev);
 });
 
 // error handler

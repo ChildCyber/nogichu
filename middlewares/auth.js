@@ -40,9 +40,26 @@ function isPremium(req, res, next) {
     next();
 }
 
+/**
+ * 模板变量
+ * @param req
+ * @param res
+ * @param next
+ */
+function ejsVar(req, res, next) {
+    req.ev = {
+        'login': req.session.logined,
+        'user': req.session.user,
+        'premium': req.session.premium,
+        'csrf': req.csrfToken()
+    };
+    next();
+}
+
 
 module.exports = {
     'loggedIn': loggedIn,
     'notLoggedIn': notLoggedIn,
     'isPremium': isPremium,
+    'ejsVar': ejsVar,
 };

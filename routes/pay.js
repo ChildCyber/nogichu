@@ -56,12 +56,7 @@ router.get('/pay-alipay', Auth.notLoggedIn, (req, res) => {
  * 支付
  */
 router.get('/pay', Auth.notLoggedIn, (req, res) => {
-    res.render('pay.ejs', {
-        'login': req.session.logined,
-        'user': req.session.user,
-        'premium': req.session.premium,
-        'csrf': req.csrfToken()
-    });
+    res.render('pay.ejs', req.ev);
 });
 
 module.exports = router;

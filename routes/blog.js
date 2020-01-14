@@ -5,22 +5,14 @@ const router = express.Router();
  * 新闻资讯
  */
 router.get('/', (req, res) => {
-    res.render('blog/blog.ejs', {
-        'user': req.session.user,
-        'login': req.session.logined,
-        'premium': req.session.premium
-    });
+    res.render('blog/blog.ejs', req.ev);
 });
 
 /**
  * 资讯详情
  */
 router.get(/.*/, (req, res) => {
-    res.render('blog/blog-detail.ejs', {
-        'user': req.session.user,
-        'login': req.session.logined,
-        'premium': req.session.premium
-    });
+    res.render('blog/blog-detail.ejs', req.ev);
 });
 
 module.exports = router;

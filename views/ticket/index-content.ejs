@@ -112,7 +112,7 @@
         </div>
 
         <form name="form-form-cancel" action="/ticket/cancel" method="post">
-            <input type="hidden" name="_token" value="t6T4FjVRlabU73OXC9GOlNOHF4rQeKcbxD4bwn9X">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
             <input type="hidden" name="ticket_content_id" id="ticket_content_id">
         </form>
 
