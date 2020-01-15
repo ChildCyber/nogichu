@@ -4,8 +4,8 @@ function randomString() {
     return Math.random().toString(36).substr(5).toUpperCase();
 }
 
-function randomToken() {
-    return crypto.randomBytes(32).toString('hex');
+function randomToken(length) {
+    return crypto.randomBytes(length ? length : 32).toString('hex');
 }
 
 function hashPassword(password) {

@@ -162,7 +162,7 @@ router.post('/password/email', (req, res) => {
     }
 
     // 根据email查询profile，根据email生成token，发送邮件
-    let token = util.randomToken();
+    let token = util.randomToken(32);
     db.collection('profile').findOne({'email': email})
         .then(data => {
             if (data) {
