@@ -30,13 +30,6 @@ router.get('/index', (req, res) => {
     Promise.all([getYonKiSei(), getMembers()])
         .then(data => {
             let [yonKiSei, members] = data;
-            // todo 不用binary存储
-            for (let i = 0; i < members.length; i++) {
-                members[i].photo = new Buffer(members[i].photo.buffer, 'binary').toString('base64');
-            }
-            for (let i = 0; i < yonKiSei.length; i++) {
-                yonKiSei[i].photo = new Buffer(yonKiSei[i].photo.buffer, 'binary').toString('base64');
-            }
             let ev = Object.assign({}, req.ev);
             ev.yonKiSei = yonKiSei;
             ev.members = members;
@@ -57,9 +50,7 @@ router.get('/view/:id', (req, res) => {
         .then(data => {
             let ev= req.ev;
             if (data) {
-                let member = Object.assign({}, data);
-                member.photo = new Buffer(data.photo.buffer, 'binary').toString('base64');
-                ev.member = member;
+                ev.member = Object.assign({}, data);
                 res.render('member/member-detail.ejs', ev);
             } else {
                 res.status(404).render('404.ejs', ev);

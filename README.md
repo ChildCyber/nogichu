@@ -1,17 +1,21 @@
-# Nogichu
-![avatar](./public/images/logo.png)  
+# ◢ Nogichu 
+[![](https://img.shields.io/badge/nogizaka-suki-77348b)](https://www.nogizaka46.com)
+>仿[乃木坂46中国会员站](https://www.nogizaka46-cn.com)   
+>Powered by [Node.js](https://nodejs.org) && [Express](https://expressjs.com)
 
-仿[乃木坂46中国会员站](https://www.nogizaka46-cn.com)  
-采用 Express 实现  
+![avatar](./docs/logo.png)
+
 移除原站点的会员支付、短信验证功能  
 
-**本项目仅供学习交流，严禁用于商业用途**
+![warning](./docs/nogi-warning.png)
+
+**注意：本项目仅供学习交流，严禁用于商业用途**
 
 ## 项目依赖
-* Node.js
+* Node.js v10
 * MongoDB
 
-## 安装
+## 安装依赖
 ```shell script
 npm install
 ```
@@ -30,15 +34,8 @@ node app.js
 http://localhost:3000
 ```
 
-## ChangeLog
-### v20200111
-* 初始版本
-* 完成用户系统
-* 麻衣様卒業おめでとう
-
 ## Todo
-移除MongoDB binary存储  
-admin页面
+* admin页面
 
 ## License
 Licensed under The MIT License

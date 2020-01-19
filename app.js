@@ -35,10 +35,13 @@ app.use(session({
   cookie: {
     path: '/',
     httpOnly: true, // 开启后前端无法通过 JS 操作
-    maxAge: 60 * 60 * 24 * 1000 // 过期时间：1天
+    maxAge: 60 * 60 * 24 * 1000 // 过期时间1天
   },
   store: new MongoStore({url: config.mongoUrl + '/' + config.dbName})
 }));
+
+app.use('/up', require('./routes/up'));
+
 app.use(csrf({cookie: true}));
 app.use(auth.ejsVar);
 
@@ -70,18 +73,17 @@ app.use(function(err, req, res, next) {
 });
 
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(config.mongoUrl);
+const client = new MongoClient(config.mongoUrl, {useUnifiedTopology: true});
 client.connect((err) => {
   if (err) {
     console.error(err);
   }
-  console.log("Connected successfully to server");
+  console.log("Connected to MongoDB successfully");
   app.locals.db = client.db('nogi');
 
   app.listen(port, () => {
-    console.log('Example app listening on port 3000!');
+    console.log('nogihub app listening on port 3000, please visit http://localhost:3000');
   });
-
 });
 
 module.exports = app;
