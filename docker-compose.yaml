@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    image: nogichu:1
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    ports:
+      - 3030:3000
+
+  mongo:
+    image: mongo:4.2-bionic
+    container_name: mongo-container
+    expose:
+      - 27017
+    ports:
+      - 27018:27017
+    volumes:
+      - ./data/:/docker-entrypoint-initdb.d/:ro

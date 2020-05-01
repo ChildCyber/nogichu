@@ -1,5 +1,5 @@
 // 动态配置信息
-const uri = "mongodb://localhost:27017";
+const uri = "mongodb://mongo-container:27017";
 const dbName = "nogi";
 const email = {
     service: "QQex",
