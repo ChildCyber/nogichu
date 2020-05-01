@@ -5,7 +5,7 @@
   "description": "乃木坂46中文站",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "server": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
