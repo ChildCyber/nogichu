@@ -40,7 +40,7 @@ app.use(session({
   store: new MongoStore({url: config.mongoUrl + '/' + config.dbName})
 }));
 
-app.use('/up', require('./routes/up'));
+app.use('/admin', require('./routes/admin'));
 
 app.use(csrf({cookie: true}));
 app.use(auth.ejsVar);
@@ -82,7 +82,7 @@ client.connect((err) => {
   app.locals.db = client.db('nogi');
 
   app.listen(port, () => {
-    console.log('nogihub app listening on port 3000, please visit http://localhost:3000');
+    console.log('Server is running at port 3000, please visit http://localhost:3000');
   });
 });
 

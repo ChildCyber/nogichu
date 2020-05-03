@@ -34,6 +34,11 @@ node app.js
 http://localhost:3000
 ```
 
+## 通过Docker运行
+```shell script
+docker-compose up
+```
+
 ## Todo
 * admin页面
 

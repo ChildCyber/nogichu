@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./head.ejs') %>
+
+<body style="margin-top:120px;background-image: url('/images/index/bg_header.png?4');background-repeat: no-repeat;background-position: top 50px right;background-size:600px 159px;">
+
+<%- include('./body.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <main class="main-content">
+        <div class="grid-container">
+            <div class="vspace-2"></div>
+            <h4 class="text-center">blog</h4>
+            <div class="section">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th width="150">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% data.forEach((page) => { %>
+                        <tr>
+                            <td><%= page.title %></td>
+                            <td>
+                                <a href="/up/blog/<%= page.title %>">编辑</a> |
+                                <a href="">删除</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <%- include('./footer.ejs') %>
+
+</div>
+
+</body>
+</html>

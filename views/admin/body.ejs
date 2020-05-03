@@ -1,0 +1,79 @@
+<div class="top-bar">
+    <div class="top-bar-left" >
+        <a href="#" class="off-canvas-menu-icon float-right hide-for-medium" data-open="offCanvas"
+           style="color:white;font-size:1.4rem;">
+            <i class="fas fa-bars"></i> <span>Menu</span>
+        </a>
+
+        <!--
+        <a href="#" class="search-icon-mobile float-right hide-for-medium" data-toggle-search-trigger>
+            <i class="fas fa-search"></i>
+        </a>
+        -->
+        <div class="header-logo float-left">
+            <a href="/">
+                <img src="/images/logo.png?2" alt="乃木坂46中国会员站" title="乃木坂46中国会员站" />
+            </a>
+        </div> <!-- /.header-logo -->
+        <ul class="menu show-for-medium" data-magellan>
+
+            <li><a class="menu-button" id="menu-button-news"  href="/#news" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas" ><b>新闻资讯</b></a></li>
+            <li><a class="menu-button" id="menu-button-funclub-introduction" href="/#funclub-introduction" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>关于乃木坂46</b></a></li>
+            <li><a class="menu-button" id="menu-button-nogizaka-member" href="/nogizaka-member/index" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>成员介绍</b></a></li>
+            <li><a class="menu-button" id="menu-button-member-benefits" href="/#member-benefits" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>会员特典</b></a></li>
+
+
+            <script>
+                $(function() {
+
+                    function addMenuButtonBorder(urlName) {
+                        console.log(location.href);
+
+                        var result = location.href.indexOf(urlName);
+                        if(result !== -1) {
+                            var id =  "a#"+$(this).attr("id")+".menu-button";
+                            $("a#menu-button-"+urlName+".menu-button").addClass("menu-button-border");
+                        }
+                    }
+
+                    addMenuButtonBorder("nogizaka-member");
+                    addMenuButtonBorder("news");
+                    addMenuButtonBorder("funclub-introduction");
+                    addMenuButtonBorder("member-benefits");
+
+                    console.log($('#menu-button-funclub-introduction'));
+                    $('.menu-button').on('click', function(){
+                        $('.menu-button').removeClass('menu-button-border');
+                        $(this).addClass('menu-button-border');
+
+                        //var id =  "a#"+$(this).attr("id")+".menu-button";
+                        //$(id).addClass("menu-button-border");
+                    });
+                });
+            </script>
+        </ul> <!-- /.menu -->
+    </div> <!-- /.top-bar-left -->
+
+    <div class="top-bar-right show-for-medium">
+        <ul class="menu">
+            <!--<li class="hide-for-small-only"><a href="#" data-toggle-search-trigger><i class="fas fa-search"></i></a></li>-->
+            <div class="text-center align-middle">
+                <div style="
+    background-color: #ffffff;     /* 背景色指定 */
+    border-radius: 10px;
+    margin:10px;
+    padding-top:14px;
+    padding-bottom:10px;
+    padding-right:5px;
+    padding-left:5px;
+    color:#ab84b9;
+    height:50px;
+    width:170px;">
+                    <a href="/login" style="display:inline;color:#ab84b9;">登录</a>
+                    |
+                    <a href="/register" style="display:inline;color:#ab84b9;">注册</a>
+                </div>
+            </div>
+        </ul> <!-- /.menu -->
+    </div> <!-- /.top-bar-right -->
+</div> <!-- /.top-bar -->
