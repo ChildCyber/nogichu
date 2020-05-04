@@ -39,8 +39,5 @@ http://localhost:3000
 docker-compose up
 ```
 
-## Todo
-* admin页面
-
 ## License
 Licensed under The MIT License

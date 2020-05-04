@@ -16,6 +16,7 @@ router.get('/pay-alipay', Auth.notLoggedIn, (req, res) => {
             if (data) {
                 let now = new Date();
                 if (now < data.expired_at) {
+                    req.session.premium = data;
                     return res.redirect('/mypage');
                 } else {
                     let expiredAt = new Date(now.getTime());
@@ -56,7 +57,9 @@ router.get('/pay-alipay', Auth.notLoggedIn, (req, res) => {
  * 支付
  */
 router.get('/pay', Auth.notLoggedIn, (req, res) => {
-    res.render('pay.ejs', req.ev);
+    let ev= req.ev;
+    delete ev.premium;
+    res.render('pay.ejs', ev);
 });
 
 module.exports = router;

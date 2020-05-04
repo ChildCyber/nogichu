@@ -1,3 +1,6 @@
+const moment = require('moment');
+moment.locale('zh-cn');
+
 /**
  * 已登录，跳转用户主页
  * @param req
@@ -35,6 +38,9 @@ function notLoggedIn(req, res, next) {
  */
 function isPremium(req, res, next) {
     if (!req.session.premium) {
+        return res.redirect('/pay');
+    }
+    if (moment(req.session.premium.expired_at).isBefore(moment.now())) {
         return res.redirect('/pay');
     }
     next();

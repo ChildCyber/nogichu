@@ -321,7 +321,7 @@ router.route('/user-info/update')
                         if (!profile.proof_number) {
                             delete profile.proof_number;
                         }
-                        return db.collection('profile').update({name: name}, {$set: profile}, {upsert: true});
+                        return db.collection('profile').updateOne({name: name}, {$set: profile}, {upsert: true});
                     }
                 } else {
                     // 插入
