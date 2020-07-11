@@ -25,8 +25,9 @@
                     <tr>
                         <td><%= blog.title %></td>
                         <td>
-                            <a href="/up/blog/<%= blog.title %>">编辑</a> |
-                            <a href="">删除</a>
+                            <a href="/admin/blog/<%= blog.title %>">编辑</a> |
+                            <a href="">删除</a> |
+                            <a href="/blog/<%= blog.slug %>">预览</a>
                         </td>
                     </tr>
                 <% }) %>
@@ -36,7 +37,8 @@
     </div>
 
     <div class="text-center">
-        <a class="button tiny line" href="/up/blog">更多</a>
+        <a class="button tiny line" href="/admin/blog/add">新增</a>
+        <a class="button tiny line" href="/admin/blog">更多</a>
     </div>
 </main>
 
@@ -58,8 +60,9 @@
                     <tr>
                         <td><%= page.title %></td>
                         <td>
-                            <a href="/up/page/<%= page.title %>">编辑</a> |
-                            <a href="">删除</a>
+                            <a href="/admin/page/<%= page.title %>">编辑</a> |
+                            <a href="">删除</a> |
+                            <a href="/page/<%= page.slug %>">预览</a> |
                         </td>
                     </tr>
                 <% }) %>
@@ -69,7 +72,8 @@
     </div>
 
     <div class="text-center">
-        <a class="button tiny line" href="/up/page">更多</a>
+        <a class="button tiny line" href="/admin/page/add">新增</a>
+        <a class="button tiny line" href="/admin/page">更多</a>
     </div>
 </main>
 

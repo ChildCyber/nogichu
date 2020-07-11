@@ -13,9 +13,12 @@
             <div class="vspace-2"></div>
             <h4 class="text-center">文章发布</h4>
             <div class="section">
-                <form class="register-form" id="edit-form" action="/up/upsert" method="post">
+                <form class="register-form" id="edit-form" action="/admin/upsert" method="post">
                     <label for="title"><p style="font-size: 20px">标题</p>
                         <input id="title" type="text" name="title" value="">
+                    </label>
+                    <label for="slug"><p style="font-size: 20px">URL</p>
+                        <input id="slug" type="text" name="slug" value="">
                     </label>
 
                     <label for="content"><p style="font-size: 20px">正文</p>
@@ -40,7 +43,7 @@
 </body>
 <script>
     url = window.location.pathname;
-    urlArr = url.split('/up/')[1];
+    urlArr = url.split('/admin/')[1];
     [api_url, type] = urlArr.split('/');
     // url = url.substring(url.lastIndexOf('/') + 1, url.length);
 
@@ -48,7 +51,7 @@
         xhe = $('.xheditor').xheditor({
             tools: 'full',
             skin: 'default',
-            upImgUrl: 'http://localhost:3000/up/upsert',
+            upImgUrl: 'http://localhost:3000/admin/upsert',
             html5Upload: false,
             upMultiple: 1,
         });
@@ -56,14 +59,17 @@
         <% if(locals.title) { %>
             $('#title').attr('value', `<%= title %>`);
         <% } %>
+        <% if(locals.slug) { %>
+            $('#slug').attr('value', `<%= slug %>`);
+        <% } %>
         <% if(locals.content) { %>
             xhe.pasteHTML(`<%- content %>`);
         <% } %>
 
         if (type === 'add') {
-            $('#edit-form').attr('action', `/up/insert/${api_url}`)
+            $('#edit-form').attr('action', `/admin/insert/${api_url}`)
         } else {
-            $('#edit-form').attr('action', `/up/update/${api_url}`)
+            $('#edit-form').attr('action', `/admin/update/${api_url}`)
         }
     });
 </script>

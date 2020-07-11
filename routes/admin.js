@@ -74,7 +74,7 @@ router.post('/update/:name', (req, res) => {
     db.collection(name).update({'title': postData.title}, {$set: postData}, {upsert: true})
         .then(data => {
             if (data.result.ok === 1 && data.result.n !== 0) {
-                res.send('success');
+                res.redirect('/admin/index');
             } else {
                 res.send('fail');
             }
@@ -99,10 +99,11 @@ router.post('/insert/:name', (req, res) => {
     if (postData.title && postData.title.includes('/')) {
         return res.send('标题不可以包含"/"')
     }
-    console.log(postData);
+
     let now = new Date();
     db.collection(name).insertOne({
         'title': postData.title,
+        'slug': postData.slug,
         'content': postData.content,
         'user': req.session.user,
         'created_at': now,
@@ -110,7 +111,7 @@ router.post('/insert/:name', (req, res) => {
     })
         .then(data => {
             if (data) {
-                res.send('success')
+                res.redirect("/admin/blog");
             } else {
                 res.send('fail')
             }
@@ -132,9 +133,9 @@ router.post('/up', upload.single('filedata'), (req, res) => {
  * blog列表模板页
  */
 router.get('/blog', (req, res) => {
-    // 分页
+    // todo 分页
     const db = req.app.locals.db;
-    db.collection('blog').find().toArray()
+    db.collection('blog').find().sort({created_at: -1}).toArray()
         .then(data => {
             res.render('admin/blog-index', {'data': data});
         })
