@@ -13,27 +13,7 @@
 <%- include('../bodycommon.ejs') %>
 
 <div class="off-canvas-content" data-off-canvas-content>
-    <div class="header-site-search" data-toggle-search>
-        <div class="grid-container">
-            <div class="grid-x">
-                <div class="cell medium-8 medium-offset-2">
-                    <form id="search-form" action="/search" method="GET">
-                        <div class="input-group">
-                            <input class="input-group-field" name="keywords" type="search" value=""
-                                   placeholder="I'm looking for..."/>
-                            <div class="input-group-button">
-                                <input type="submit" class="button dark" value="Search">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.cell -->
-            </div>
-            <!-- /.grid -->
-        </div>
-        <!-- /.container -->
-    </div>
-    <!-- /.header-site-search -->
+    <%- include('../body-site-search.ejs') %>
 
     <%- include('../header.ejs') %>
 
@@ -52,8 +32,8 @@
                        background-repeat: no-repeat;
                        height:200px;
                 ">
-                    <h1 style="padding-top:50px;"><%= title %></h1>
-                    <p><%= created_at.toLocaleDateString() %></p>
+                    <h1 style="padding-top:50px;"><%= locals.title %></h1>
+                    <p><%= locals.created_at.toLocaleDateString() %></p>
                 </div>
             </div> <!-- /.grid-container -->
         </div> <!-- /.page-title -->
@@ -63,7 +43,7 @@
         <div class="grid-container">
             <div class="grid-x">
                 <div class="cell small-12">
-                    <%- content %>
+                    <%- locals.content %>
                 </div> <!-- /.cell -->
             </div> <!-- /.grid -->
         </div> <!-- /.grid-container -->

@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <div class="top-bar-left" >
+    <div class="top-bar-left">
         <a href="#" class="off-canvas-menu-icon float-right hide-for-medium" data-open="offCanvas"
            style="color:white;font-size:1.4rem;">
             <i class="fas fa-bars"></i> <span>Menu</span>
@@ -12,36 +12,39 @@
         -->
         <div class="header-logo float-left">
             <a href="/">
-                <img src="/images/logo.png?2" alt="乃木坂46中国会员站" title="乃木坂46中国会员站" />
+                <img src="/images/logo.png?2" alt="乃木坂46中国会员站" title="乃木坂46中国会员站"/>
             </a>
-        </div> <!-- /.header-logo -->
+        </div>
+        <!-- /.header-logo -->
         <ul class="menu show-for-medium" data-magellan>
 
             <% if(locals.login) { %>
                 <li><a class="menu-button" id="menu-button-mypage" href="/mypage"><b>我的主页</b></a></li>
             <% } %>
-            <li><a class="menu-button" id="menu-button-news"  href="/#news" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas" ><b>新闻资讯</b></a></li>
-            <li><a class="menu-button" id="menu-button-funclub-introduction" href="/#funclub-introduction" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>关于乃木坂46</b></a></li>
-            <li><a class="menu-button" id="menu-button-nogizaka-member" href="/nogizaka-member/index" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>成员介绍</b></a></li>
-            <li><a class="menu-button" id="menu-button-member-benefits" href="/#member-benefits" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>会员特典</b></a></li>
-            <li><a class="menu-button" id="menu-button-mypage-guidance" href="/#mypage-guidance" data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>我的主页介绍</b></a></li>
+            <li><a class="menu-button" id="menu-button-news" href="/#news" data-close="offCanvas" aria-expanded="true"
+                   aria-controls="offCanvas"><b>新闻资讯</b></a></li>
+            <li><a class="menu-button" id="menu-button-funclub-introduction" href="/#funclub-introduction"
+                   data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>关于乃木坂46</b></a></li>
+            <li><a class="menu-button" id="menu-button-nogizaka-member" href="/nogizaka-member/index"
+                   data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>成员介绍</b></a></li>
+            <li><a class="menu-button" id="menu-button-member-benefits" href="/#member-benefits" data-close="offCanvas"
+                   aria-expanded="true" aria-controls="offCanvas"><b>会员特典</b></a></li>
+            <li><a class="menu-button" id="menu-button-mypage-guidance" href="/#mypage-guidance" data-close="offCanvas"
+                   aria-expanded="true" aria-controls="offCanvas"><b>我的主页介绍</b></a></li>
             <% if(!locals.login) { %>
                 <li><a class="menu-button" id="menu-button-register" href="/register"><b>立即入会</b></a></li>
             <% } %>
 
-
-
-
             <script>
-                $(function() {
+                $(function () {
 
                     function addMenuButtonBorder(urlName) {
                         console.log(location.href);
 
                         var result = location.href.indexOf(urlName);
-                        if(result !== -1) {
-                            var id =  "a#"+$(this).attr("id")+".menu-button";
-                            $("a#menu-button-"+urlName+".menu-button").addClass("menu-button-border");
+                        if (result !== -1) {
+                            var id = "a#" + $(this).attr("id") + ".menu-button";
+                            $("a#menu-button-" + urlName + ".menu-button").addClass("menu-button-border");
                         }
                     }
 
@@ -54,7 +57,7 @@
                     addMenuButtonBorder("register");
 
                     console.log($('#menu-button-funclub-introduction'));
-                    $('.menu-button').on('click', function(){
+                    $('.menu-button').on('click', function () {
                         $('.menu-button').removeClass('menu-button-border');
                         $(this).addClass('menu-button-border');
 
@@ -63,12 +66,13 @@
                     });
                 });
             </script>
-        </ul> <!-- /.menu -->
-    </div> <!-- /.top-bar-left -->
+        </ul>
+        <!-- /.menu -->
+    </div>
+    <!-- /.top-bar-left -->
 
     <div class="top-bar-right show-for-medium">
         <ul class="menu">
-
 
             <% if(locals.login) { %>
                 <% if(locals.premium) { %>
@@ -89,7 +93,8 @@
             <%= user %>" data-is-click="false">
                             <a href="#" style="margin:0;marigin-right:10px;">
                                 <%= user.name || user %><span style="font-size:0.9rem">(正式会员)</span></a>
-                            <ul class="menu submenu is-dropdown-submenu first-sub vertical" style="background-color: rgb(255, 255, 255);" data-submenu="" role="menubar">
+                            <ul class="menu submenu is-dropdown-submenu first-sub vertical"
+                                style="background-color: rgb(255, 255, 255);" data-submenu="" role="menubar">
                                 <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
                                     <a href="/mypage">
                                         我的主页
@@ -103,7 +108,8 @@
                                     <a href="/pay">
                                         支付
                                     </a>
-                                    <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    <a href="#"
+                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         退出
                                     </a>
 
@@ -111,9 +117,11 @@
                                         <input type="hidden" name="_csrf" value="<%= csrf %>">
                                     </form>
                                 </li>
-                            </ul> <!-- /.menu -->
+                            </ul>
+                            <!-- /.menu -->
                         </li>
-                    </ul> <!-- /.dropdown -->
+                    </ul>
+                    <!-- /.dropdown -->
                 <% } else { %>
                     <!--<li class="hide-for-small-only"><a href="#" data-toggle-search-trigger><i class="fas fa-search"></i></a></li>-->
                     <div class="text-center align-middle"></div>
@@ -131,7 +139,8 @@ width:170px;" role="menuitem" class="is-dropdown-submenu-parent opens-left" aria
         (非会员)" data-is-click="false">
                             <a href="#" style="margin:0;marigin-right:10px;">
                                 <span style="font-size:0.9rem">(非会员)</span></a>
-                            <ul class="menu submenu is-dropdown-submenu first-sub vertical" style="background-color: rgb(255, 255, 255);" data-submenu="" role="menubar">
+                            <ul class="menu submenu is-dropdown-submenu first-sub vertical"
+                                style="background-color: rgb(255, 255, 255);" data-submenu="" role="menubar">
                                 <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
                                     <a href="/mypage">
                                         我的主页
@@ -145,7 +154,8 @@ width:170px;" role="menuitem" class="is-dropdown-submenu-parent opens-left" aria
                                     <a href="/pay">
                                         支付
                                     </a>
-                                    <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    <a href="#"
+                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         退出
                                     </a>
 
@@ -153,7 +163,8 @@ width:170px;" role="menuitem" class="is-dropdown-submenu-parent opens-left" aria
                                         <input type="hidden" name="_csrf" value="<%= csrf %>">
                                     </form>
                                 </li>
-                            </ul> <!-- /.menu -->
+                            </ul>
+                            <!-- /.menu -->
                         </li>
                     </ul>
                 <% } %>
@@ -178,7 +189,9 @@ width:170px;" role="menuitem" class="is-dropdown-submenu-parent opens-left" aria
                 </div>
             <% } %>
 
-
-        </ul> <!-- /.menu -->
-    </div> <!-- /.top-bar-right -->
-</div> <!-- /.top-bar -->
+        </ul>
+        <!-- /.menu -->
+    </div>
+    <!-- /.top-bar-right -->
+</div>
+<!-- /.top-bar -->

@@ -13,144 +13,126 @@
 <%- include('../bodycommon.ejs') %>
 
 <div class="off-canvas-content" data-off-canvas-content>
+    <%- include('../body-site-search.ejs') %>
 
     <%- include('../header.ejs') %>
 
+    <main class="main-content" >
+        <div class="page-title2">
+            <div class="grid-container">
+                <div class="text-center">
+                    <img src="/images/blog/news_top_icon.png" style="height: 100px;margin-top:30px;margin-bottom:50px;">
+                </div>
+                <div class="text-center">
+                    <img src="/images/blog/news_title_bg1.png" style="height: 80px;">
+                </div>
 
-    <div class="header-site-search" data-toggle-search="">
-        <div class="grid-container">
-            <div class="grid-x">
-                <div class="cell medium-8 medium-offset-2">
-                    <form id="search-form" action="/search" method="GET">
-                        <div class="input-group">
-                            <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for...">
-                            <div class="input-group-button">
-                                <input type="submit" class="button dark" value="Search">
-                            </div>
-                        </div>
-                    </form>                </div> <!-- /.cell -->
-            </div> <!-- /.grid -->
-        </div> <!-- /.container -->
-    </div> <!-- /.header-site-search -->
-
-
-    <div class="page-title2">
-        <div class="grid-container">
-            <div class="text-center">
-                <img src="/images/blog/news_top_icon.png" style="height: 100px;margin-top:30px;margin-bottom:50px;">
-            </div>
-            <div class="text-center">
-                <img src="/images/blog/news_title_bg1.png" style="height: 80px;">
-            </div>
-
-            <div class="text-center" style="
+                <div class="text-center" style="
         	   background-image: url(/images/blog/news_title_bg2.png);
         	   background-repeat: no-repeat;
         	   height:200px;
         ">
-                <h1 style="padding-top:50px;">新闻资讯</h1>
-            </div>
-        </div> <!-- /.grid-container -->
-    </div> <!-- /.page-title -->
+                    <h1 style="padding-top:50px;">新闻资讯</h1>
+                </div>
+            </div> <!-- /.grid-container -->
+        </div> <!-- /.page-title -->
 
+        <div class="vspace-2"></div>
+        <div class="vspace-2"></div>
 
-
-    <div class="vspace-2"></div>
-    <div class="vspace-2"></div>
-
-    <div class="grid-container">
-        <div class="cell small-12">
-            <div class="grid-x grid-padding-x">
-                <div class="cell small-12 medium-4 large-3">
-                    <div class="card">
-                        <a href="https://www.nogizaka46-cn.com/blog/46">
-                            <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/kIpadk7Zx9SJf8LE3M0t.JPG" style="width:100%">
-                        </a>
-                        <div class="card-section">
-                            <!--
-                                                                <p style="margin:10px;">新闻资讯</p>
-                                                             -->
-                            <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+        <div class="grid-container">
+            <div class="cell small-12">
+                <div class="grid-x grid-padding-x">
+                    <div class="cell small-12 medium-4 large-3">
+                        <div class="card">
                             <a href="https://www.nogizaka46-cn.com/blog/46">
-                                <h4>乃木坂46中国会员站先行入会特典（已截止）</h4>
+                                <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/kIpadk7Zx9SJf8LE3M0t.JPG" style="width:100%">
                             </a>
+                            <div class="card-section">
+                                <!--
+                                                                    <p style="margin:10px;">新闻资讯</p>
+                                                                 -->
+                                <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                <a href="https://www.nogizaka46-cn.com/blog/46">
+                                    <h4>乃木坂46中国会员站先行入会特典（已截止）</h4>
+                                </a>
 
-                            <span class="">
+                                <span class="">
 
                                     2019-12-27
                                 </span>
-                        </div> <!-- /.card-section -->
-                    </div> <!-- /.card -->
-                </div> <!-- /.cell -->
-                <div class="cell small-12 medium-4 large-3">
-                    <div class="card">
-                        <a href="https://www.nogizaka46-cn.com/blog/N46-8th-year-birthday-live">
-                            <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/wXe6byEmB1wTa5GpWJ6K.jpg" style="width:100%">
-                        </a>
-                        <div class="card-section">
-                            <!--
-                                                                <p style="margin:10px;">乃木坂46中国会员站「8th YEAR BIRTHDAY LIVE」抽选预&amp;hellip;</p>
-                                                             -->
-                            <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                            </div> <!-- /.card-section -->
+                        </div> <!-- /.card -->
+                    </div> <!-- /.cell -->
+                    <div class="cell small-12 medium-4 large-3">
+                        <div class="card">
                             <a href="https://www.nogizaka46-cn.com/blog/N46-8th-year-birthday-live">
-                                <h4>「8th YEAR BIRTHDAY LIVE」抽选预告</h4>
+                                <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/wXe6byEmB1wTa5GpWJ6K.jpg" style="width:100%">
                             </a>
+                            <div class="card-section">
+                                <!--
+                                                                    <p style="margin:10px;">乃木坂46中国会员站「8th YEAR BIRTHDAY LIVE」抽选预&amp;hellip;</p>
+                                                                 -->
+                                <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                <a href="https://www.nogizaka46-cn.com/blog/N46-8th-year-birthday-live">
+                                    <h4>「8th YEAR BIRTHDAY LIVE」抽选预告</h4>
+                                </a>
 
-                            <span class="">
+                                <span class="">
 
                                     2019-12-24
                                 </span>
-                        </div> <!-- /.card-section -->
-                    </div> <!-- /.card -->
-                </div> <!-- /.cell -->
-                <div class="cell small-12 medium-4 large-3">
-                    <div class="card">
-                        <a href="https://www.nogizaka46-cn.com/blog/8th-year-birthday-live">
-                            <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/lvlwySiRVdWV0JA5HfOB.JPG" style="width:100%">
-                        </a>
-                        <div class="card-section">
-                            <!--
-                                                                <p style="margin:10px;">其他信息</p>
-                                                             -->
-                            <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                            </div> <!-- /.card-section -->
+                        </div> <!-- /.card -->
+                    </div> <!-- /.cell -->
+                    <div class="cell small-12 medium-4 large-3">
+                        <div class="card">
                             <a href="https://www.nogizaka46-cn.com/blog/8th-year-birthday-live">
-                                <h4>「8th YEAR BIRTHDAY LIVE」 举行决定的通知</h4>
+                                <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/December2019-260x175/lvlwySiRVdWV0JA5HfOB.JPG" style="width:100%">
                             </a>
+                            <div class="card-section">
+                                <!--
+                                                                    <p style="margin:10px;">其他信息</p>
+                                                                 -->
+                                <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                <a href="https://www.nogizaka46-cn.com/blog/8th-year-birthday-live">
+                                    <h4>「8th YEAR BIRTHDAY LIVE」 举行决定的通知</h4>
+                                </a>
 
-                            <span class="">
+                                <span class="">
 
                                     2019-11-28
                                 </span>
-                        </div> <!-- /.card-section -->
-                    </div> <!-- /.card -->
-                </div> <!-- /.cell -->
-                <div class="cell small-12 medium-4 large-3">
-                    <div class="card">
-                        <a href="https://www.nogizaka46-cn.com/blog/11">
-                            <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/November2019-260x175/8gpP9eCdzTz8TUs6ZTbI.jpg" style="width:100%">
-                        </a>
-                        <div class="card-section">
-                            <!--
-                                                                <p style="margin:10px;">最新资讯</p>
-                                                             -->
-                            <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                            </div> <!-- /.card-section -->
+                        </div> <!-- /.card -->
+                    </div> <!-- /.cell -->
+                    <div class="cell small-12 medium-4 large-3">
+                        <div class="card">
                             <a href="https://www.nogizaka46-cn.com/blog/11">
-                                <h4>乃木坂46 在上海举行公演</h4>
+                                <img src="https://www.nogizaka46-cn.com/storage/resized/blog_posts/November2019-260x175/8gpP9eCdzTz8TUs6ZTbI.jpg" style="width:100%">
                             </a>
+                            <div class="card-section">
+                                <!--
+                                                                    <p style="margin:10px;">最新资讯</p>
+                                                                 -->
+                                <img src="/images/index/latest_information.png" style="height: 40px;margin-left:-10px;margin-top:-10px;">
+                                <a href="https://www.nogizaka46-cn.com/blog/11">
+                                    <h4>乃木坂46 在上海举行公演</h4>
+                                </a>
 
-                            <span class="">
+                                <span class="">
 
                                     2019-10-27
                                 </span>
-                        </div> <!-- /.card-section -->
-                    </div> <!-- /.card -->
-                </div> <!-- /.cell -->
-            </div> <!-- /.grid -->
-        </div> <!-- /.cell -->
-    </div> <!-- /.grid-container -->
+                            </div> <!-- /.card-section -->
+                        </div> <!-- /.card -->
+                    </div> <!-- /.cell -->
+                </div> <!-- /.grid -->
+            </div> <!-- /.cell -->
+        </div> <!-- /.grid-container -->
 
-    <div class="vspace-1"></div>
-
+        <div class="vspace-1"></div>
+    </main>
 
     <%- include('../footer.ejs') %>
 </div>

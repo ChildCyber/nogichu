@@ -13,30 +13,9 @@
 <%- include('../bodycommon.ejs') %>
 
 <div class="off-canvas-content" data-off-canvas-content>
-    <div class="header-site-search" data-toggle-search>
-        <div class="grid-container">
-            <div class="grid-x">
-                <div class="cell medium-8 medium-offset-2">
-                    <form id="search-form" action="/search" method="GET">
-                        <div class="input-group">
-                            <input class="input-group-field" name="keywords" type="search" value=""
-                                   placeholder="I'm looking for..."/>
-                            <div class="input-group-button">
-                                <input type="submit" class="button dark" value="Search">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.cell -->
-            </div>
-            <!-- /.grid -->
-        </div>
-        <!-- /.container -->
-    </div>
-    <!-- /.header-site-search -->
+    <%- include('../body-site-search.ejs') %>
 
     <%- include('../header.ejs') %>
-
 
     <main class="main-content">
         <div class="grid-container" style="
