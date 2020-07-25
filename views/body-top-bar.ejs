@@ -19,21 +19,54 @@
         <ul class="menu show-for-medium" data-magellan>
 
             <% if(locals.login) { %>
-                <li><a class="menu-button" id="menu-button-mypage" href="/mypage"><b>我的主页</b></a></li>
+                <li>
+                    <a class="menu-button" id="menu-button-mypage" href="/mypage">
+                        <b>我的主页</b>
+                    </a>
+                </li>
             <% } %>
-            <li><a class="menu-button" id="menu-button-news" href="/#news" data-close="offCanvas" aria-expanded="true"
-                   aria-controls="offCanvas"><b>新闻资讯</b></a></li>
-            <li><a class="menu-button" id="menu-button-funclub-introduction" href="/#funclub-introduction"
-                   data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>关于乃木坂46</b></a></li>
-            <li><a class="menu-button" id="menu-button-nogizaka-member" href="/nogizaka-member/index"
-                   data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas"><b>成员介绍</b></a></li>
-            <li><a class="menu-button" id="menu-button-member-benefits" href="/#member-benefits" data-close="offCanvas"
-                   aria-expanded="true" aria-controls="offCanvas"><b>会员特典</b></a></li>
-            <li><a class="menu-button" id="menu-button-mypage-guidance" href="/#mypage-guidance" data-close="offCanvas"
-                   aria-expanded="true" aria-controls="offCanvas"><b>我的主页介绍</b></a></li>
+            <li>
+                <a class="menu-button" id="menu-button-news" href="/#news" data-close="offCanvas" aria-expanded="true"
+                   aria-controls="offCanvas">
+                    <b>新闻资讯</b>
+                </a>
+            </li>
+            <li>
+                <a class="menu-button" id="menu-button-funclub-introduction" href="/#funclub-introduction"
+                   data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas">
+                    <b>关于乃木坂46</b>
+                </a>
+            </li>
+            <li>
+                <a class="menu-button" id="menu-button-nogizaka-member" href="/nogizaka-member/index"
+                   data-close="offCanvas" aria-expanded="true" aria-controls="offCanvas">
+                    <b>成员介绍</b>
+                </a>
+            </li>
+            <li>
+                <a class="menu-button" id="menu-button-member-benefits" href="/#member-benefits" data-close="offCanvas"
+                   aria-expanded="true" aria-controls="offCanvas">
+                    <b>会员特典</b>
+                </a>
+            </li>
+            <li>
+                <a class="menu-button" id="menu-button-mypage-guidance" href="/#mypage-guidance" data-close="offCanvas"
+                   aria-expanded="true" aria-controls="offCanvas">
+                    <b>我的主页介绍</b>
+                </a>
+            </li>
             <% if(!locals.login) { %>
-                <li><a class="menu-button" id="menu-button-register" href="/register"><b>立即入会</b></a></li>
+                <li><a class="menu-button" id="menu-button-register" href="/register">
+                        <b>立即入会</b>
+                    </a>
+                </li>
             <% } %>
+            <li>
+                <a class="menu-button" id="menu-button-shop" href="https://shop90696331.m.youzan.com/v2/showcase/homepage?alias=K2UAANsJas&amp;ps=760">
+                    <sup style="float:right;left:0.1rem;"><img style="display:block;width:21px;height:16px;" src="images/hot-stamp.gif"></sup>
+                    <b>会员限定商城</b>
+                </a>
+            </li>
 
             <script>
                 $(function () {
@@ -138,7 +171,8 @@ color:#ab84b9;
 width:170px;" role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="
         (非会员)" data-is-click="false">
                             <a href="#" style="margin:0;marigin-right:10px;">
-                                <span style="font-size:0.9rem">(非会员)</span></a>
+                                <span style="font-size:0.9rem">(非会员)</span>
+                            </a>
                             <ul class="menu submenu is-dropdown-submenu first-sub vertical"
                                 style="background-color: rgb(255, 255, 255);" data-submenu="" role="menubar">
                                 <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
