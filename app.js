@@ -40,8 +40,6 @@ app.use(session({
   store: new MongoStore({url: config.mongoUrl + '/' + config.dbName})
 }));
 
-app.use('/admin', require('./routes/admin'));
-
 app.use(csrf({cookie: true}));
 app.use(auth.ejsVar);
 
@@ -53,6 +51,8 @@ app.use('/nogizaka-member', require('./routes/member'));
 app.use('/page', require('./routes/page'));
 app.use('/blog', require('./routes/blog'));
 app.use('/ticket', require('./routes/ticket'));
+app.use('/search', require('./routes/search'));
+app.use('/admin', require('./routes/admin'));
 
 /**
  * 404页面

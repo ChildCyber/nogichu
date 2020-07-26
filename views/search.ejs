@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('./head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('./body-header.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <%- include('./body-site-search.ejs') %>
+
+    <%- include('./body-top-bar.ejs') %>
+
+    <main class="main-content">
+        <div class="page-title2">
+            <div class="grid-container">
+                <div class="text-center">
+                    <img src="/images/blog/news_top_icon.png" style="height: 100px;margin-top:30px;margin-bottom:50px;">
+                </div>
+                <div class="text-center">
+                    <img src="/images/blog/news_title_bg1.png" style="height: 80px;">
+                </div>
+
+                <div class="text-center" style="
+                   background-image: url(/images/blog/news_title_bg2.png);
+                   background-repeat: no-repeat;
+                   height:200px;
+                ">
+                    <h1 style="padding-top:50px;">Site Search</h1>
+                </div>
+            </div> <!-- /.grid-container -->
+        </div> <!-- /.page-title -->
+
+
+
+        <div class="vspace-2"></div>
+
+        <div class="grid-container">
+            <div class="cell small-12">
+                <div class="grid-x grid-padding-x">
+                    <div class="cell small-12">
+                        <div class="vspace-1"></div>
+
+                        <form id="search-form" action="/search" method="GET">
+                            <div class="input-group">
+                                <input class="input-group-field" name="keywords" type="search" value="" placeholder="I'm looking for...">
+                                <div class="input-group-button">
+                                    <input type="submit" class="button dark" value="Search">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="vspace-1"></div>
+                        <hr>
+                    </div>
+
+                </div> <!-- /.grid -->
+            </div> <!-- /.cell -->
+        </div> <!-- /.grid-container -->
+    </main>
+
+    <%- include('./body-footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
