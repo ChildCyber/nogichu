@@ -52,6 +52,7 @@ app.use('/page', require('./routes/page'));
 app.use('/blog', require('./routes/blog'));
 app.use('/ticket', require('./routes/ticket'));
 app.use('/search', require('./routes/search'));
+app.use('/question', require('./routes/question'));
 app.use('/admin', require('./routes/admin'));
 
 /**
