@@ -33,8 +33,8 @@
                        background-repeat: no-repeat;
                        height:200px;
                 ">
-                    <h1 style="padding-top:50px;"><%= locals.title %></h1>
-                    <p><%= locals.created_at.toLocaleDateString() %></p>
+                    <h1 style="padding-top:50px;"><%= data.title %></h1>
+                    <p><%= data.created_at.toLocaleDateString() %></p>
                 </div>
             </div>
             <!-- /.grid-container -->
@@ -46,7 +46,7 @@
         <div class="grid-container">
             <div class="grid-x">
                 <div class="cell small-12">
-                    <%- locals.content %>
+                    <%- data.content %>
                 </div>
                 <!-- /.cell -->
             </div>
