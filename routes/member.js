@@ -37,7 +37,7 @@ router.get('/index', (req, res) => {
         })
         .catch(err => {
             console.error(err);
-            res.send('程序异常，请稍后重试');
+            res.status(500).render('500');
         });
 });
 
@@ -48,9 +48,9 @@ router.get('/view/:id', (req, res) => {
     const db = req.app.locals.db;
     db.collection('member').findOne({'id': parseInt(req.params.id)}, {projection: {_id: 0}})
         .then(data => {
-            let ev= req.ev;
+            let ev = Object.assign({}, req.ev);
             if (data) {
-                ev.member = Object.assign({}, data);
+                ev.member = data;
                 res.render('member/member-detail.ejs', ev);
             } else {
                 res.status(404).render('404.ejs', ev);
@@ -58,7 +58,7 @@ router.get('/view/:id', (req, res) => {
         })
         .catch(err => {
             console.error(err);
-            res.send('程序异常，请稍后重试')
+            res.status(500).render('500');
         });
 });
 

@@ -109,15 +109,13 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                         }
                     }
 
-                    res.render('user/mypage.ejs', {
-                        'login': req.session.logined,
-                        'user': user,
-                        'premium': premium,
-                        'csrf': req.csrfToken()
-                    });
+                    let ev = Object.assign({}, req.ev);
+                    ev.user = user;
+                    res.render('user/mypage.ejs', ev);
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.error(err);
+                    res.status(500).render('500');
                 })
         });
 });
@@ -191,58 +189,45 @@ router.get('/user-info', Auth.notLoggedIn, (req, res) => {
         return db.collection('profile').findOne({'phone': req.session.phone});
     }
 
+    let ev = Object.assign({}, req.ev);
     Promise.all([getMember(), getUserInfo()])
         .then(data => {
             let [members, user] = data;
             if (user) {
                 // 隐藏用户信息
                 let email = user.email || '';
-                let proof_number = user.proof_number || '';
                 if (email) {
                     let emailArr = email.split('@');
                     user.email = emailArr[0].slice(0, emailArr[0].length - 4) + '****@' + emailArr[1];
                 }
+                let proof_number = user.proof_number || '';
                 if (proof_number) {
                     user.proof_number = proof_number.slice(0, 3) + '******' + proof_number.substring(9);
                 }
             }
 
+            ev.members = members;
+            ev.user = user; // string替换为object
+
             // 验证修改页面传递过来的错误信息
             let nameErr = req.session.info_err || '';
-            let nameHelpText = req.session.member_err || '';
             if (nameErr) {
                 delete req.session.info_err;
-                res.render('user/user-info.ejs', {
-                    'members': members,
-                    'err': nameErr,
-                    'login': req.session.logined,
-                    'user': user,
-                    'premium': req.session.premium,
-                    'csrf': req.csrfToken()
-                });
+                ev.err = nameErr;
+                res.render('user/user-info.ejs', ev);
             }
+            let nameHelpText = req.session.member_err || '';
             if (nameHelpText) {
                 delete req.session.member_err;
-                res.render('user/user-info.ejs', {
-                    'members': members,
-                    'member_err': nameHelpText,
-                    'login': req.session.logined,
-                    'user': user,
-                    'premium': req.session.premium,
-                    'csrf': req.csrfToken()
-                });
+                ev.member_err = nameHelpText;
+                res.render('user/user-info.ejs', ev);
             }
-            res.render('user/user-info.ejs', {
-                'members': members,
-                'login': req.session.logined,
-                'user': user,
-                'premium': req.session.premium,
-                'csrf': req.csrfToken()
-            })
+
+            res.render('user/user-info.ejs', ev);
         })
         .catch(err => {
             console.error(err);
-            res.send('程序出错，请稍后重试')
+            res.status(500).render('500');
         });
 });
 
@@ -280,7 +265,7 @@ router.route('/user-info/update')
         let oshimen = [postData.like_1, postData.like_2, postData.like_3];
         profile.phone = req.session.phone;
         profile.oshimen = oshimen.map(item => {
-            return parseInt(item)
+            return parseInt(item);
         });
         // 删除多余属性
         delete profile.like_1;

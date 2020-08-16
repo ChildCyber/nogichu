@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
             })
             .catch(err => {
                 console.error(err);
-                res.send('程序异常，请稍后重试');
+                res.status(500).render('500');
             });
     } else {
         db.collection('blog').find({'premium': false}).limit(12).skip(skip).sort({created_at: -1}).toArray()
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
             })
             .catch(err => {
                 console.error(err);
-                res.send('程序异常，请稍后重试');
+                res.status(500).render('500');
             });
     }
 });
@@ -38,8 +38,8 @@ router.get('/', (req, res) => {
  * 资讯详情
  */
 router.get('/:slug', (req, res) => {
-    let ev = Object.assign({}, req.ev);
     const db = req.app.locals.db;
+    let ev = Object.assign({}, req.ev);
 
     db.collection('blog').findOne({'slug': req.params.slug})
         .then(data => {
@@ -47,12 +47,12 @@ router.get('/:slug', (req, res) => {
                 ev.data = data;
                 res.render('blog/blog-detail.ejs', ev);
             } else {
-                res.status(404).render('404');
+                res.status(404).render('404', ev);
             }
         })
         .catch(err => {
             console.error(err);
-            res.send('程序异常，请稍后重试');
+            res.status(500).render('500');
         });
 });
 

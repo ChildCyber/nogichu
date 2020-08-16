@@ -51,7 +51,7 @@ router.route('/user-password')
                 }
             })
             .catch(err => {
-                console.log(err);
+                console.error(err);
                 ev.passwordHelpText = '密码修改失败 请稍后重试';
                 res.render('password/reset-password.ejs', ev);
             });
@@ -85,7 +85,7 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
             res.render('password/forget-password.ejs', {'csrf': req.csrfToken()});
         } else {
             let token = urlArr[1].split('?')[0];
-            res.render('password/email-password.ejs', {'token': token, 'csrf': req.csrfToken()})
+            res.render('password/email-password.ejs', {'token': token, 'csrf': req.csrfToken()});
         }
     })
     .post((req, res) => {
@@ -112,7 +112,7 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
         if (Object.keys(msg).length !== 0) {
             msg.token = token;
             msg.csrf = req.csrfToken();
-            return res.render('password/email-password.ejs', msg)
+            return res.render('password/email-password.ejs', msg);
         }
         db.collection('mail_token').findOne({'token': token})
             .then(data => {
@@ -129,7 +129,7 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
                     msg.token = token;
                     throw msg;
                 } else {
-                    return db.collection('profile').findOne({'email': email})
+                    return db.collection('profile').findOne({'email': email});
                 }
             })
             .then(async data => {
@@ -140,11 +140,11 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
                 req.session.phone = data.phone;
                 req.session.user = data.name;
                 req.session.premium = premium;
-                res.redirect('/mypage')
+                res.redirect('/mypage');
             })
             .catch(err => {
                 console.error(err);
-                res.render('password/email-password.ejs', err)
+                res.render('password/email-password.ejs', err);
             })
     });
 
@@ -158,7 +158,7 @@ router.post('/password/email', (req, res) => {
     let email = postData.email || null;
     if (!email) {
         req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
-        return res.redirect('/password/reset')
+        return res.redirect('/password/reset');
     }
 
     // 根据email查询profile，根据email生成token，发送邮件
@@ -174,7 +174,7 @@ router.post('/password/email', (req, res) => {
                 });
             } else {
                 req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
-                return res.redirect('/password/reset')
+                return res.redirect('/password/reset');
             }
         })
         .then(data => {
@@ -191,7 +191,7 @@ router.post('/password/email', (req, res) => {
             }
         })
         .catch(err => {
-            console.warn(err);
+            console.error(err);
             req.session.password_msg = {'sendHelpText': '邮件发送失败 请稍后重试！'};
             res.redirect('/password/reset');
         });
