@@ -21,9 +21,10 @@ router.route('/user-password')
             })
     })
     .post((req, res) => {
+        const db = req.app.locals.db;
+
         // 参数校验
         // todo 添加判断用户名和邮箱验证
-        const db = req.app.locals.db;
         let postData = req.body;
         let password = postData.password || null;
         let pc = postData.password_confirmation || null;
