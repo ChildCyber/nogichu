@@ -1,33 +1,30 @@
 const path = require('path');
 const express = require('express');
-const router = express.Router();
 const multer = require('multer');
+const router = express.Router();
 const util = require('../common/util');
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../public/images/upload'))
-    },
-    filename: (req, file, cb) => {
-        cb(null, util.randomToken(16).toString('hex') + '.' + file.originalname.split('.').slice(-1)[0])
-    }
-});
-
 const upload = multer({
-    storage: storage
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, path.join(__dirname, '../public/images/upload'))
+        },
+        filename: (req, file, cb) => {
+            cb(null, util.randomToken(16) + '.' + file.originalname.split('.').slice(-1)[0])
+        }
+    })
 });
 
 // admin index模板页
 router.get('/index', (req, res) => {
-    // db查询，获取page & blog以及其下的更多页面
     const db = req.app.locals.db;
 
     function getPage() {
-        return db.collection('page').find().limit(10).toArray()
+        return db.collection('page').find().sort({created_at: -1}).limit(10).toArray();
     }
 
     function getBlog() {
-        return db.collection('blog').find().limit(10).toArray()
+        return db.collection('blog').find().sort({created_at: -1}).limit(10).toArray();
     }
 
     Promise.all([getPage(), getBlog()])
@@ -37,24 +34,7 @@ router.get('/index', (req, res) => {
         })
         .catch(err => {
             console.error(err);
-            res.send('程序异常，请稍后重试');
-        });
-});
-
-// admin 修改模板页
-router.get('/edit/:title', (req, res) => {
-    const db = req.app.locals.db;
-    db.collection('admin_data').findOne({'title': req.params.title})
-        .then(data => {
-            if (data) {
-                res.render('admin/admin-edit', data);
-            } else {
-                res.status(404).render('404');
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            res.send('程序异常，请稍后重试');
+            res.status(500).render('500');
         });
 });
 
@@ -70,6 +50,7 @@ router.post('/update/:name', (req, res) => {
     // 修改更新时间
     const db = req.app.locals.db;
     let postData = req.body;
+    delete postData._csrf;
     postData.updated_at = new Date();
     db.collection(name).update({'title': postData.title}, {$set: postData}, {upsert: true})
         .then(data => {
@@ -85,19 +66,21 @@ router.post('/update/:name', (req, res) => {
  * 创建
  */
 router.post('/insert/:name', (req, res) => {
+    const db = req.app.locals.db;
+
     // created_at, title, content, created_by, updated_at
     // 校验参数
     let name = req.params.name || null;
     if (!name || !['page', 'blog'].includes(name)) {
         return res.send('wrong params');
     }
-    const db = req.app.locals.db;
+
     let postData = req.body;
     if (Object.keys(postData).length === 0) {
-        return res.send('wrong params')
+        return res.send('wrong params');
     }
     if (postData.title && postData.title.includes('/')) {
-        return res.send('标题不可以包含"/"')
+        return res.send('标题不可以包含"/"');
     }
 
     let now = new Date();
@@ -105,16 +88,22 @@ router.post('/insert/:name', (req, res) => {
         'title': postData.title,
         'slug': postData.slug,
         'content': postData.content,
+        'premium': Boolean(postData.premium),
+        'category': postData.category,
         'user': req.session.user,
         'created_at': now,
         'updated_at': now
     })
         .then(data => {
             if (data) {
-                res.redirect("/admin/blog");
+                res.redirect("/admin/" + name);
             } else {
-                res.send('fail')
+                res.send('fail');
             }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).render('500');
         });
 });
 
@@ -123,10 +112,9 @@ router.post('/up', upload.single('filedata'), (req, res) => {
     let minetype = req.file.mimetype;
     let types = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
     if (types.indexOf(minetype.split('/')[1]) === -1) {
-        return res.send('wrong file type')
+        return res.send('wrong file type');
     }
-    let url = `/images/upload/${req.file.filename}`;
-    res.send({err: 0, msg: url, img: url});
+    res.send({err: 0, msg: url, img: `/images/upload/${req.file.filename}`});
 });
 
 /**
@@ -139,13 +127,17 @@ router.get('/blog', (req, res) => {
         .then(data => {
             res.render('admin/blog-index', {'data': data});
         })
+        .catch(err => {
+            console.error(err);
+            res.status(500).render('500');
+        });
 });
 
 /**
  * 新建blog模板页
  */
 router.get('\^/blog/add\$', (req, res) => {
-    res.render('admin/admin-edit')
+    res.render('admin/admin-edit', req.ev);
 });
 
 /**
@@ -157,14 +149,17 @@ router.get('/blog/:title', (req, res) => {
     db.collection('blog').findOne({'title': req.params.title})
         .then(data => {
             if (data) {
-                res.render('admin/admin-edit', data);
+                let ev = Object.assign({}, req.ev);
+                ev.data = data;
+                console.log(ev);
+                res.render('admin/admin-edit', ev);
             } else {
                 res.status(404).render('404');
             }
         })
         .catch(err => {
             console.error(err);
-            res.send('程序异常，请稍后重试');
+            res.status(500).render('500');
         });
 });
 
@@ -175,6 +170,10 @@ router.get('/page', (req, res) => {
     db.collection('page').find().toArray()
         .then(data => {
             res.render('admin/page-index', {'data': data});
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).render('500');
         });
 });
 
@@ -182,7 +181,7 @@ router.get('/page', (req, res) => {
  * 新建page模板页
  */
 router.get('\^/page/add\$', (req, res) => {
-    res.render('admin/admin-edit')
+    res.render('admin/admin-edit', req.ev);
 });
 
 /**
@@ -194,14 +193,16 @@ router.get('/page/:title', (req, res) => {
     db.collection('page').findOne({'title': req.params.title})
         .then(data => {
             if (data) {
-                res.render('admin/admin-edit', data);
+                let ev = Object.assign({}, req.ev);
+                ev.data = data;
+                res.render('admin/admin-edit', ev);
             } else {
                 res.status(404).render('404');
             }
         })
         .catch(err => {
             console.error(err);
-            res.send('程序异常，请稍后重试');
+            res.status(500).render('500');
         });
 });
 

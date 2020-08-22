@@ -13,7 +13,8 @@
             <div class="vspace-2"></div>
             <h4 class="text-center">文章发布</h4>
             <div class="section">
-                <form class="register-form" id="edit-form" action="/admin/upsert" method="post">
+                <form class="register-form" id="edit-form" action="" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrf %>">
                     <label for="title"><p style="font-size: 20px">标题</p>
                         <input id="title" type="text" name="title" value="">
                     </label>
@@ -21,9 +22,28 @@
                         <input id="slug" type="text" name="slug" value="">
                     </label>
 
+                    <label for="category"><p style="font-size: 20px">分类</p>
+                        <select name="category" id="category">
+                            <option value="1">最新资讯</option>
+                            <option value="2">LIVE相关</option>
+                            <option value="3">会员活动</option>
+                            <option value="4">重要通知</option>
+                            <option value="5">限定视频</option>
+                            <option value="6">现场日记</option>
+                        </select>
+                    </label>
+
+                    <label for="premium"><p style="font-size: 20px">会员限定</p>
+                        <fieldset class="large-5 cell" id="premium">
+                            <input type="radio" name="premium" value="true" id="true">
+                            <label for="true">是</label>
+                            <input type="radio" name="premium" value="" id="false" checked>
+                            <label for="false">否</label>
+                        </fieldset>
+                    </label>
+
                     <label for="content"><p style="font-size: 20px">正文</p>
-                        <textarea id="content" name="content" class="xheditor"
-                                  style="width: 100%; height: 500px;"></textarea>
+                        <textarea id="content" name="content" class="xheditor" style="width: 100%; height: 500px;"></textarea>
                     </label>
 
                     <div class="vspace-2"></div>
@@ -56,14 +76,20 @@
             upMultiple: 1,
         });
 
-        <% if(locals.title) { %>
-            $('#title').attr('value', `<%= title %>`);
+        <% if(locals.data) { %>
+            $('#title').attr('value', "<%= data.title %>");
         <% } %>
-        <% if(locals.slug) { %>
-            $('#slug').attr('value', `<%= slug %>`);
+        <% if(locals.data) { %>
+            $('#slug').attr('value', "<%= data.slug %>");
         <% } %>
-        <% if(locals.content) { %>
-            xhe.pasteHTML(`<%- content %>`);
+        <% if(locals.data) { %>
+            $('#category').attr('selectedIndex', `<%= data.category %>-1`);
+        <% } %>
+<!--        <% if(locals.data) { %>-->
+<!--            $('#premium').elements[0].attr('checked', true);-->
+<!--        <% } %>-->
+        <% if(locals.data) { %>
+            xhe.pasteHTML(`<%- data.content %>`);
         <% } %>
 
         if (type === 'add') {
