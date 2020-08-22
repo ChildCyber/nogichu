@@ -3,7 +3,7 @@
 >仿[乃木坂46中国会员站](https://www.nogizaka46-cn.com)   
 >Powered by [Node.js](https://nodejs.org) && [Express](https://expressjs.com)
 
-![avatar](./public/images/logo.png)
+![avatar](./docs/logo.png)
 
 移除原站点的会员支付、短信验证功能  
 
