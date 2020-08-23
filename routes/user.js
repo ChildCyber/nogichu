@@ -57,7 +57,7 @@ router.route('/login')
             })
             .catch((err) => {
                 console.error(err);
-                res.render('user/login/ejs', {'err': '登录失败，请稍后重试', 'phone': phone, 'csrf': req.csrfToken()});
+                res.render('user/login.ejs', {'err': '登录失败，请稍后重试', 'phone': phone, 'csrf': req.csrfToken()});
             });
     });
 

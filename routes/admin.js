@@ -114,7 +114,9 @@ router.post('/up', upload.single('filedata'), (req, res) => {
     if (types.indexOf(minetype.split('/')[1]) === -1) {
         return res.send('wrong file type');
     }
-    res.send({err: 0, msg: url, img: `/images/upload/${req.file.filename}`});
+
+    let url = `/images/upload/${req.file.filename}`;
+    res.send({err: 0, msg: url, img: url});
 });
 
 /**
