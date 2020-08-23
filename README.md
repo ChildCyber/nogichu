@@ -36,7 +36,7 @@ http://localhost:3000
 
 ## 通过Docker运行
 ```shell script
-docker-compose up
+docker-compose up --build
 ```
 
 ## License

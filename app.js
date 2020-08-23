@@ -74,13 +74,17 @@ app.use(function(err, req, res, next) {
 });
 
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(config.mongoUrl, {useUnifiedTopology: true});
+const MongoConfig = {
+  serverSelectionTimeoutMS: config.dbConnTimeout,
+  useUnifiedTopology: true
+};
+const client = new MongoClient(config.mongoUrl, MongoConfig);
 client.connect((err) => {
   if (err) {
-    console.error(err);
+    throw err;
   }
   console.log("Connected to MongoDB successfully");
-  app.locals.db = client.db('nogi');
+  app.locals.db = client.db(config.dbName);
 
   app.listen(port, () => {
     console.log('Server is running at port 3000, please visit http://localhost:3000');

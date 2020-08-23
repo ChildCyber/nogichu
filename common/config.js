@@ -1,6 +1,7 @@
 // 动态配置信息
-const uri = "mongodb://mongo-container:27017";
+const uri = "mongodb://mongo:27017";
 const dbName = "nogi";
+const dbConnTimeout = 5000;
 const email = {
     service: "QQex",
     user: "",
@@ -10,5 +11,6 @@ const email = {
 module.exports = {
     mongoUrl: uri,
     dbName: dbName,
-    email: email
+    email: email,
+    dbConnTimeout: dbConnTimeout,
 };
