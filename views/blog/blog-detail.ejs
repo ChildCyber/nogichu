@@ -34,7 +34,7 @@
                        height:200px;
                 ">
                     <h1 style="padding-top:50px;"><%= data.title %></h1>
-                    <p><%= data.created_at.toLocaleDateString() %></p>
+                    <p>发布日期　<%= moment(data.created_at).format('YYYY-MM-DD') %></p>
                 </div>
             </div>
             <!-- /.grid-container -->

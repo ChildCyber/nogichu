@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+moment.locale('zh-cn');
 
 /* GET homepage. */
 router.get('/', (req, res) => {
@@ -9,6 +11,7 @@ router.get('/', (req, res) => {
         .then(data => {
             let ev = Object.assign({}, req.ev);
             ev.data = data;
+            ev.moment = moment;
             res.render('index.ejs', ev);
         })
         .catch(err => {

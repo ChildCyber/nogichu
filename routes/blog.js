@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+moment.locale('zh-cn');
 
 /**
  * 新闻资讯
@@ -44,7 +46,11 @@ router.get('/:slug', (req, res) => {
     db.collection('blog').findOne({'slug': req.params.slug})
         .then(data => {
             if (data) {
+                if (data.premium && !req.session.premium) {
+                    res.render('need-premium', ev);
+                }
                 ev.data = data;
+                ev.moment = moment;
                 res.render('blog/blog-detail.ejs', ev);
             } else {
                 res.status(404).render('404', ev);

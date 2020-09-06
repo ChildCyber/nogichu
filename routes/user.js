@@ -66,6 +66,8 @@ router.route('/login')
  */
 router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
     const db = req.app.locals.db;
+    let ev = Object.assign({}, req.ev);
+
     db.collection('profile').findOne({'phone': req.session.phone})
         .then(data => {
             if (data.email) {
@@ -81,6 +83,7 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                 premium.expired_at = moment(premium.expired_at).format('lll');
                 premium.created_at = moment(premium.created_at).format('lll');
             }
+
             return new Promise(resolve => {
                 console.log('get user info');
                 resolve([data, db.collection('photos').find({'id': {$in: data.oshimen}}).project({
@@ -109,8 +112,8 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                         }
                     }
 
-                    let ev = Object.assign({}, req.ev);
                     ev.user = user;
+                    ev.premium = premium;
                     res.render('user/mypage.ejs', ev);
                 })
                 .catch(err => {
