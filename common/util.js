@@ -15,8 +15,19 @@ function hashPassword(password) {
     return hash.digest('hex');
 }
 
+function maskEmail(email) {
+    let emailArr = email.split('@');
+    return emailArr[0].slice(0, emailArr[0].length - 4) + '****@' + emailArr[1];
+}
+
+function maskNumber(phone) {
+    return phone.slice(0, 3) + '******' + phone.substring(9);
+}
+
 module.exports = {
     'randomString': randomString,
     'randomToken': randomToken,
     'hashPassword': hashPassword,
+    'maskEmail': maskEmail,
+    'maskNumber': maskNumber,
 };

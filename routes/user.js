@@ -44,6 +44,7 @@ router.route('/login')
                                 'csrf': req.csrfToken()
                             });
                         }
+
                         req.session.logined = true;
                         req.session.phone = phone;
                         req.session.user = profile ? profile.name : null;
@@ -71,8 +72,7 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
     db.collection('profile').findOne({'phone': req.session.phone})
         .then(data => {
             if (data.email) {
-                let emailArr = data.email.split('@');
-                data.email = emailArr[0].slice(0, emailArr[0].length - 4) + '****@' + emailArr[1];
+                data.email = util.maskEmail(data.email)
             }
             // if (data.birthday) {
             //     data.birthday = (new Date(data.birthday).toLocaleString()).slice(0, -3)
@@ -85,7 +85,6 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
             }
 
             return new Promise(resolve => {
-                console.log('get user info');
                 resolve([data, db.collection('photos').find({'id': {$in: data.oshimen}}).project({
                     id: 1,
                     name: 1,
@@ -102,7 +101,6 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                     if (oshimen) {
                         // 如果有推，推数据添加图片信息
                         for (let i = 0; i < oshimen.length; i++) {
-                            console.log(Object.keys(oshimen));
                             // oshimen[i].photo = new Buffer(oshimen[i].photo.buffer, 'binary').toString('base64');
                             // 用户只填写一个推，根据user.oshimen的下标修改对应推信息
                             let index = user.oshimen.indexOf(oshimen[i].id);
@@ -200,12 +198,11 @@ router.get('/user-info', Auth.notLoggedIn, (req, res) => {
                 // 隐藏用户信息
                 let email = user.email || '';
                 if (email) {
-                    let emailArr = email.split('@');
-                    user.email = emailArr[0].slice(0, emailArr[0].length - 4) + '****@' + emailArr[1];
+                    user.email = util.maskEmail(email);
                 }
                 let proof_number = user.proof_number || '';
                 if (proof_number) {
-                    user.proof_number = proof_number.slice(0, 3) + '******' + proof_number.substring(9);
+                    user.proof_number = util.maskNumber(proof_number);
                 }
             }
 
