@@ -47,6 +47,7 @@ app.use('/', require('./routes/index'));
 app.use('/', require('./routes/user'));
 app.use('/', require('./routes/password'));
 app.use('/', require('./routes/pay'));
+app.use('/withdrawal', require('./routes/mail'));
 app.use('/nogizaka-member', require('./routes/member'));
 app.use('/page', require('./routes/page'));
 app.use('/blog', require('./routes/blog'));

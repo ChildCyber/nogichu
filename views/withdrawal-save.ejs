@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('./head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('./body-header.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <%- include('./body-site-search.ejs') %>
+
+    <%- include('./body-top-bar.ejs') %>
+
+    <main class="main-content">
+        <div class="grid-container">
+
+            <div class="text-center">
+                <p></p>
+            </div>
+            <div class="text-center">
+                <b><h1 align="center">停止邮件推送完成</h1></b>
+            </div>
+            <div class="text-center">
+                <b style="color:black"><h8 align="center">已为您经停止邮件推送。</h8></b>
+            </div>
+            <div class="text-center">
+                <p></p>
+            </div>
+
+        </div>
+    </main>
+
+    <%- include('./body-footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
