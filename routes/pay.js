@@ -6,6 +6,15 @@ const moment = require('moment');
 moment.locale('zh-cn');
 
 /**
+ * 支付页面
+ */
+router.get('/pay', Auth.notLoggedIn, (req, res) => {
+    let ev = req.ev;
+    delete ev.premium;
+    res.render('pay.ejs', ev);
+});
+
+/**
  * 支付宝支付
  */
 router.get('/pay-alipay', Auth.notLoggedIn, (req, res) => {
@@ -54,12 +63,10 @@ router.get('/pay-alipay', Auth.notLoggedIn, (req, res) => {
 });
 
 /**
- * 支付
+ * 报名成功后，支付
  */
-router.get('/pay', Auth.notLoggedIn, (req, res) => {
-    let ev= req.ev;
-    delete ev.premium;
-    res.render('pay.ejs', ev);
+router.get('/pay/:mainId/:contentId', (req, res) => {
+    res.send('todo');
 });
 
 module.exports = router;

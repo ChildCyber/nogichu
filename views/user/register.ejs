@@ -89,7 +89,7 @@
         <script>
             $('#sendVerifySmsButton').sms({
                 //laravel csrf token
-                token: "hjWx88FpRjuMQMq12m9RHCzD8pPtadUZahMnwrDK",
+                token: "<%= csrf %>",
                 //请求间隔时间
                 interval: 60,
                 //请求参数
