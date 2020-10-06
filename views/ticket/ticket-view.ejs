@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('../body-header.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <%- include('../body-site-search.ejs') %>
+
+    <%- include('../body-top-bar.ejs') %>
+
+    <main class="main-content">
+
+        <div class="grid-container">
+
+            <div class="grid-x grid-padding-y">
+                <div class="medium-6 medium-offset-3 cell email">
+                    <h4 class="text-center">先行门票报名信息的确认</h4>
+                    <hr>
+
+                    <h5 class="type-sidelines custom-2">
+                        <span>报名信息  </span>
+                    </h5>
+                    <h5>本人</h5>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-name"> 姓（汉字）</label>
+                            <p><%= user.first_name %></p>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_name"> 名（汉字）</label>
+                            <p><%= user.last_name %></p>
+                        </div>
+                    </div>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-pinyin"> 姓（拼音） </label>
+                            <p><%= apply.first_pinyin %></p>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_pinyin"> 名（拼音） </label>
+                            <p><%= apply.last_pinyin %></p>
+                        </div>
+                    </div>
+
+                    <label for="phone"> 手机号码 </label>
+                    <p><%= apply.phone %></p>
+
+                    <label for="email"> 邮箱 </label>
+                    <p><%= apply.email %></p>
+
+                    <label for="passport_number"> 身份证号码 </label>
+                    <p><%= apply.passport_number %></p>
+
+
+
+                    <div class="grid-x">
+                        <div class="small-12 medium-12 large-12 cell "></div>
+                    </div>
+                    <label for="created_at"> 活动状态 </label>
+                    <p>【未当选】</p>
+
+
+
+                    <label for="created_at"> 报名时间 </label>
+                    <p><%= apply.created_at %></p>
+
+                    <div style="text-align: right;margin-top:30px;margin-bottom:30px;">
+                        <a href="/ticket/index-content/<%= main_id %>">返回先行申请一览</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <%- include('../body-footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>

@@ -21,28 +21,12 @@
     <main class="main-content">
 
         <div class="grid-container">
-            <div class="vspace-2"></div>
-            <h4 class="text-center">先行门票抽选报名</h4>
-            <hr>
-            <div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th width="50">ID</th>
-                        <th width="150">场次</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% data.forEach((ticket) => { %>
-                    <tr>
-                        <td><%= ticket.id %></td>
-                        <td><a href="/ticket/index-content/<%= ticket.id %>"><%= ticket.title %></a></td>
-                    </tr>
-                    <% }) %>
-                    </tbody>
-                </table>
-            </div>
+            <p>&nbsp;</p>
+            <p style="text-align: center;">恭喜您门票费用支付成功</p>
+            <p style="text-align: center;"><a href="/ticket/index-content/1">【返回先行门票抽选一览】</a></p>
+            <p>&nbsp;</p>
         </div>
+
     </main>
 
     <%- include('../body-footer.ejs') %>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('../body-header.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <%- include('../body-site-search.ejs') %>
+
+    <%- include('../body-top-bar.ejs') %>
+
+    <main class="main-content">
+        <form class="register-form" method="POST" action="/ticket/update">
+            <div class="grid-container">
+                <div class="grid-x grid-padding-y">
+                    <div class="medium-6 medium-offset-3 cell email">
+                    <h4 class="text-center">先行门票抽选报名</h4>
+                    <hr>
+                    <!--<input type="hidden" name="_token" value="<%= csrf %>">-->
+                    <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+                    <h5 class="type-sidelines custom-2">
+                        <span>填写报名信息</span>
+                    </h5>
+
+                    <h5>本人</h5>
+                    <a href="/user-info">※请确保您所填姓名与证件姓名一致，如需修改请前往【个人中心】修改后保存，然后返回继续报名。请注意，姓名仅能修改一次。</a>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-name"> 姓（汉字）
+                                <p><%= user.first_name %></p>
+                            </label>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_name"> 名（汉字）
+                                <p><%= user.last_name %></p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-pinyin"> 姓（拼音）
+                                <input id="pinyin" type="text" name="first_pinyin" value="" required="">
+                            </label>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_pinyin"> 名（拼音）
+                                <input id="pinyin" type="text" name="last_pinyin" value="" required="">
+                            </label>
+                        </div>
+                    </div>
+
+                    <label for="phone"> 手机号码 <input id="phone" type="text" class="form-control" name="phone" value="" required="">
+                    </label>
+                    <label for="email"> 邮箱 <input id="email" type="email" name="email" value="" required="">
+                    </label>
+
+                    <label for="passport_number"> 身份证号码 <input id="passport_number" type="text" name="passport_number" value="">
+                    </label>
+
+                    <label for="passport_number_confirmation"> 确认身份证号码
+                        <input id="passport_number_confirmation" type="text" name="passport_number_confirmation" value="">
+                    </label>
+                    <br>
+                    <div class="vspace-2"></div>
+                    <input name="agree_ticket" id="agree_ticket_checkbox" type="checkbox" value="1">
+                    <label for="agree_ticket_checkbox">我已确认以上信息准确无误，如因信息错误造成无法参加本次活动，责任与会员站无关</label>
+                    <input type="hidden" name="ticket_main_id" value="<%= main_id %>">
+                    <input type="hidden" name="ticket_content_id" value="<%= content_id %>">
+                    <input type="hidden" name="is_agree" value="1">
+                    <button type="submit" class="button expanded" name="action" value="confirm">确认信息</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </main>
+
+    <%- include('../body-footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>

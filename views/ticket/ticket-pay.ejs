@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('../body-header.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <%- include('../body-site-search.ejs') %>
+
+    <%- include('../body-top-bar.ejs') %>
+
+    <main class="main-content">
+
+        <div class="grid-container">
+            <div class="grid-x grid-padding-y">
+                <div class="medium-6 medium-offset-3 cell email">
+                    <h4 class="text-center">先行门票支付</h4>
+                    <hr>
+
+                    <h5 class="type-sidelines custom-2">
+                        <span>报名信息</span>
+                    </h5>
+
+                    <h5>本人</h5>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-name"> 姓（汉字） </label>
+                            <p>
+                                夏
+                            </p>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_name"> 名（汉字）  </label>
+                            <p>杰</p>
+                        </div>
+                    </div>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-pinyin"> 姓（拼音） </label>
+                            <p>
+                                xia
+                            </p>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_pinyin"> 名（拼音） </label>
+                            <p>jie</p>
+                        </div>
+                    </div>
+                    <label for="phone"> 手机号码 </label>
+                    <p>18251170137</p>
+
+                    <label for="email"> 邮箱 </label>
+                    <p>932131534@qq.com</p>
+
+                    <label for="passport_number"> 护照号码 </label>
+                    <p>275492</p>
+
+
+                    <hr>
+                    <label for="created_at"> 活动状态 </label>
+                    <p>【当选】</p>
+                    <label for="created_at"> 报名时间 </label>
+                    <p>2021-02-15 20:47</p>
+
+                    <h5 class="type-sidelines custom-2">
+                        <span>当选信息</span>
+                    </h5>
+
+                    <h5> 支付金额 </h5>
+                    <p>
+                        299元
+                    </p>
+
+                    <h5> 付款截止时间 </h5>
+                    <p>2021-02-19 12:00</p>
+                    <div id="countdowntimer"><span id="future_date"></span></div>
+                    <br>
+                    <h4>
+                        <img alt="alipay" src="/images/alipay-logo.png" width="100px">
+                    </h4>
+                    <a class="button primary" style="color:white;" href="/pay-alipay/pay-ticket?type=web&amp;ticket-application-id=8632">
+                        点击进行网站支付
+                    </a>
+
+                    <a class="button primary" style="color:white;" href="/pay-alipay/pay-ticket?type=wap&amp;ticket-application-id=8632">
+                        点击进行手机支付
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <link rel="stylesheet" type="text/css" href="https://www.nogizaka46-cn.com/css/jquery.countdown.css">
+        <script type="text/javascript" src="https://www.nogizaka46-cn.com/js/jquery.plugin.min.js"></script>
+        <script type="text/javascript" src="https://www.nogizaka46-cn.com/js/jquery.countdown.min.js"></script>
+
+        <script type="text/javascript">
+
+        </script>
+    </main>
+
+    <%- include('../body-footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>
