@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
     let skip = page > 1 ? (page - 1) * 12 : 0;
     let ev = Object.assign({}, req.ev);
 
+    // 付费会员限定内容
     if (type === 'v' && req.session.premium) {
         db.collection('blog').find({'premium': true}).limit(12).skip(skip).sort({created_at: -1}).toArray()
             .then(data => {
@@ -20,7 +21,7 @@ router.get('/', (req, res) => {
                 res.render('blog/premium.ejs', ev);
             })
             .catch(err => {
-                console.error(err);
+                console.error(err.stack);
                 res.status(500).render('500');
             });
     } else {
@@ -30,7 +31,7 @@ router.get('/', (req, res) => {
                 res.render('blog/blog.ejs', ev);
             })
             .catch(err => {
-                console.error(err);
+                console.error(err.stack);
                 res.status(500).render('500');
             });
     }
@@ -48,16 +49,17 @@ router.get('/:slug', (req, res) => {
             if (data) {
                 if (data.premium && !req.session.premium) {
                     res.render('need-premium', ev);
+                } else { // 付费会员限定内容
+                    ev.data = data;
+                    ev.moment = moment;
+                    res.render('blog/blog-detail.ejs', ev);
                 }
-                ev.data = data;
-                ev.moment = moment;
-                res.render('blog/blog-detail.ejs', ev);
             } else {
                 res.status(404).render('404', ev);
             }
         })
         .catch(err => {
-            console.error(err);
+            console.error(err.stack);
             res.status(500).render('500');
         });
 });

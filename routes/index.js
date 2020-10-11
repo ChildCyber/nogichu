@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
             res.render('index.ejs', ev);
         })
         .catch(err => {
-            console.error(err);
+            console.error(err.stack);
             res.status(500).render('500');
         });
 });

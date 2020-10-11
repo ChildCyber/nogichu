@@ -9,7 +9,7 @@ moment.locale('zh-cn');
  * 用户登录页
  */
 router.route('/login')
-    .all(Auth.loggedIn)
+    .all(Auth.loginRedirect)
     .get((req, res) => {
         res.render('user/login.ejs', {'csrf': req.csrfToken()});
     })
@@ -37,7 +37,7 @@ router.route('/login')
                 if (user != null) {
                     req.session.regenerate((err) => {
                         if (err) {
-                            console.log(err);
+                            console.err(err.stack);
                             res.render('user/login.ejs', {
                                 'err': '登录失败，请稍后重试',
                                 'phone': phone,
@@ -57,7 +57,7 @@ router.route('/login')
                 }
             })
             .catch((err) => {
-                console.error(err);
+                console.error(err.stack);
                 res.render('user/login.ejs', {'err': '登录失败，请稍后重试', 'phone': phone, 'csrf': req.csrfToken()});
             });
     });
@@ -65,7 +65,7 @@ router.route('/login')
 /**
  * 用户：我的主页
  */
-router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
+router.get('/mypage', Auth.requireLogin, Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
     let ev = Object.assign({}, req.ev);
 
@@ -95,7 +95,6 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                 .then(async data => {
                     let oshimen = await data[1];
                     let user = data[0];
-                    console.log('get member info');
 
                     // 用户推数据
                     if (oshimen) {
@@ -115,7 +114,7 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
                     res.render('user/mypage.ejs', ev);
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error(err.stack);
                     res.status(500).render('500');
                 })
         });
@@ -125,7 +124,7 @@ router.get('/mypage', Auth.notLoggedIn, Auth.isPremium, (req, res) => {
  * 用户注册页
  */
 router.route('/register')
-    .all(Auth.loggedIn)
+    .all(Auth.loginRedirect)
     .get((req, res) => {
         res.render('user/register.ejs', {'csrf': req.csrfToken()});
     })
@@ -172,6 +171,10 @@ router.route('/register')
                     } else {
                         res.render('user/register.ejs', {'nameHelpText': '注册失败，请稍后重试', 'csrf': req.csrfToken()});
                     }
+                })
+                .catch(err => {
+                    console.error(err.stack);
+                    res.status(500).render('500');
                 });
         }
     });
@@ -179,7 +182,7 @@ router.route('/register')
 /**
  * 个人中心
  */
-router.get('/user-info', Auth.notLoggedIn, (req, res) => {
+router.get('/user-info', Auth.requireLogin, (req, res) => {
     const db = req.app.locals.db;
 
     function getMember() {
@@ -226,7 +229,7 @@ router.get('/user-info', Auth.notLoggedIn, (req, res) => {
             res.render('user/user-info.ejs', ev);
         })
         .catch(err => {
-            console.error(err);
+            console.error(err.stack);
             res.status(500).render('500');
         });
 });
@@ -238,7 +241,7 @@ router.route('/user-info/update')
     .get((req, res) => {
         res.status(405).render('405.ejs');
     })
-    .post(Auth.notLoggedIn, (req, res) => {
+    .post(Auth.requireLogin, (req, res) => {
         const db = req.app.locals.db;
         let postData = req.body;
         // 参数验证

@@ -8,7 +8,7 @@ moment.locale('zh-cn');
 /**
  * 支付页面
  */
-router.get('/pay', Auth.notLoggedIn, (req, res) => {
+router.get('/pay', Auth.requireLogin, (req, res) => {
     let ev = req.ev;
     delete ev.premium;
     res.render('pay.ejs', ev);
@@ -17,7 +17,7 @@ router.get('/pay', Auth.notLoggedIn, (req, res) => {
 /**
  * 支付宝支付
  */
-router.get('/pay-alipay', Auth.notLoggedIn, (req, res) => {
+router.get('/pay-alipay', Auth.requireLogin, (req, res) => {
     const db = req.app.locals.db;
 
     db.collection('premium').findOne({'phone': req.session.phone, 'user': req.session.user})

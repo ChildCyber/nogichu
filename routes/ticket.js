@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Auth = require('../middlewares/auth');
 const util = require('../common/util');
 const moment = require('moment');
 moment.locale('zh-cn');
@@ -7,7 +8,7 @@ moment.locale('zh-cn');
 /**
  * 先行门票抽选报名，活动列表
  */
-router.get('/index', (req, res) => {
+router.get('/index', Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
     let ev = Object.assign({}, req.ev);
     db.collection('ticket').find().sort({id: 1}).toArray()
@@ -24,7 +25,7 @@ router.get('/index', (req, res) => {
 /**
  * 先行门票抽选报名，特定活动
  */
-router.get('/index-content/:mainId', (req, res) => {
+router.get('/index-content/:mainId', Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
     let ev = Object.assign({}, req.ev);
 
@@ -72,7 +73,7 @@ router.get('/index-content/:mainId', (req, res) => {
 /**
  * 特定活动下某一场次
  */
-router.get('/page/:mainId/:contentId', (req, res) => {
+router.get('/page/:mainId/:contentId', Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
     let ev = Object.assign({}, req.ev);
     let main_id = parseInt(req.params.mainId);
@@ -114,7 +115,7 @@ router.get('/page/:mainId/:contentId', (req, res) => {
 /**
  * 指定场次报名，填写报名表单
  */
-router.get('/form/:mainId/:contentId', (req, res) => {
+router.get('/form/:mainId/:contentId', Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
 
     let ev = Object.assign({}, req.ev);
@@ -148,7 +149,7 @@ router.get('/form/:mainId/:contentId', (req, res) => {
 /**
  * 确认报名信息
  */
-router.get('/view/:mainId/:contentId', (req, res) => {
+router.get('/view/:mainId/:contentId', Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
     let ev = Object.assign({}, req.ev);
 
@@ -187,8 +188,9 @@ router.get('/view/:mainId/:contentId', (req, res) => {
  * 修改报名信息
  */
 router.route('/update')
+    .all(Auth.requirePremium)
     .get((req, res) => {
-        res.render('ticket/ticket-update', req.ev);
+        res.status(405).render('405');
     })
     .post((req, res) => {
         // 确认信息报名，修改报名信息
@@ -227,7 +229,7 @@ router.route('/update')
 /**
  * 取消报名
  */
-router.post('/cancel/:mainId/:contentId', (req, res) => {
+router.post('/cancel/:mainId/:contentId', Auth.requirePremium, (req, res) => {
     const db = req.app.locals.db;
 
     db.collection('ticket_apply').updateOne({

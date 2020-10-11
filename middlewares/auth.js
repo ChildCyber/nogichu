@@ -8,7 +8,7 @@ moment.locale('zh-cn');
  * @param next
  * @returns {void|never|Response}
  */
-function loggedIn(req, res, next) {
+function loginRedirect(req, res, next) {
     if (req.session.logined) {
         return res.redirect('/mypage');
     }
@@ -22,7 +22,7 @@ function loggedIn(req, res, next) {
  * @param next
  * @returns {void|never|Response}
  */
-function notLoggedIn(req, res, next) {
+function requireLogin(req, res, next) {
     if (!req.session.logined) {
         return res.redirect('/login');
     }
@@ -36,7 +36,10 @@ function notLoggedIn(req, res, next) {
  * @param next
  * @returns {void|never|Response}
  */
-function isPremium(req, res, next) {
+function requirePremium(req, res, next) {
+    if (!req.session.logined) {
+        return res.redirect('/login');
+    }
     if (!req.session.premium) {
         return res.redirect('/pay');
     }
@@ -64,8 +67,8 @@ function ejsVar(req, res, next) {
 
 
 module.exports = {
-    'loggedIn': loggedIn,
-    'notLoggedIn': notLoggedIn,
-    'isPremium': isPremium,
+    'loginRedirect': loginRedirect,
+    'requireLogin': requireLogin,
+    'requirePremium': requirePremium,
     'ejsVar': ejsVar,
 };

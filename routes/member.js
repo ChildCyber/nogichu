@@ -36,7 +36,7 @@ router.get('/index', (req, res) => {
             res.render('member/member-index.ejs', ev);
         })
         .catch(err => {
-            console.error(err);
+            console.error(err.stack);
             res.status(500).render('500');
         });
 });
@@ -57,7 +57,7 @@ router.get('/view/:id', (req, res) => {
             }
         })
         .catch(err => {
-            console.error(err);
+            console.error(err.stack);
             res.status(500).render('500');
         });
 });

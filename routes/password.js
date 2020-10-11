@@ -10,7 +10,7 @@ moment.locale('zh-cn');
  * 修改密码
  */
 router.route('/user-password')
-    .all(Auth.notLoggedIn)
+    .all(Auth.requireLogin)
     .get((req, res) => {
         const db = req.app.locals.db;
         db.collection('profile').findOne({'name': req.session.user})
@@ -63,7 +63,7 @@ router.route('/user-password')
  */
 // router.route('\^/password/reset\$',)
 router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
-    .all(Auth.loggedIn)
+    .all(Auth.loginRedirect) // 跳转到mypage
     .get((req, res) => {
         // if (req.session.password_msg) {
         //     let password_msg = req.session.password_msg;
@@ -152,50 +152,54 @@ router.route(/^\/password\/reset?(?:\/(\d+)(?:\.\.(\d+))?)?/)
 /**
  * 发送重置密码邮件
  */
-router.post('/password/email', (req, res) => {
-    const db = req.app.locals.db;
-    let postData = req.body;
-    // 参数校验
-    let email = postData.email || null;
-    if (!email) {
-        req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
-        return res.redirect('/password/reset');
-    }
+router.route('/password/email')
+    .get((req, res) => {
+        res.status(405).render('405.ejs');
+    })
+    .post((req, res) => {
+        const db = req.app.locals.db;
+        let postData = req.body;
+        // 参数校验
+        let email = postData.email || null;
+        if (!email) {
+            req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
+            return res.redirect('/password/reset');
+        }
 
-    // 根据email查询profile，根据email生成token，发送邮件
-    let token = util.randomToken(32);
-    db.collection('profile').findOne({'email': email})
-        .then(data => {
-            if (data) {
-                return db.collection('mail_token').insertOne({
-                    'email': email,
-                    'token': token,
-                    'created_at': new Date(),
-                    'phone': data.phone,
-                });
-            } else {
-                req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
-                return res.redirect('/password/reset');
-            }
-        })
-        .then(data => {
-            if (data) {
-                req.session.password_msg = {'sendHelpText': '密码重置邮件已发送到您的邮箱！'};
-                let port = req.app.get('env') === 'development' ? ':3000' : '';
-                let url = req.protocol + '://' + req.hostname + port + '/password/reset/' + token + '?email=' + email;
-                console.log(url);
-                mail(email, url);
-                res.redirect('/password/reset');
-            } else {
+        // 根据email查询profile，根据email生成token，发送邮件
+        let token = util.randomToken(32);
+        db.collection('profile').findOne({'email': email})
+            .then(data => {
+                if (data) {
+                    return db.collection('mail_token').insertOne({
+                        'email': email,
+                        'token': token,
+                        'created_at': new Date(),
+                        'phone': data.phone,
+                    });
+                } else {
+                    req.session.password_msg = {'emailHelpText': '账号信息不存在！'};
+                    return res.redirect('/password/reset');
+                }
+            })
+            .then(data => {
+                if (data) {
+                    req.session.password_msg = {'sendHelpText': '密码重置邮件已发送到您的邮箱！'};
+                    let port = req.app.get('env') === 'development' ? ':3000' : '';
+                    let url = req.protocol + '://' + req.hostname + port + '/password/reset/' + token + '?email=' + email;
+                    console.log(url);
+                    mail(email, url);
+                    res.redirect('/password/reset');
+                } else {
+                    req.session.password_msg = {'sendHelpText': '邮件发送失败 请稍后重试！'};
+                    res.redirect('/password/reset');
+                }
+            })
+            .catch(err => {
+                console.error(err);
                 req.session.password_msg = {'sendHelpText': '邮件发送失败 请稍后重试！'};
                 res.redirect('/password/reset');
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            req.session.password_msg = {'sendHelpText': '邮件发送失败 请稍后重试！'};
-            res.redirect('/password/reset');
-        });
-});
+            });
+    });
 
 module.exports = router;
