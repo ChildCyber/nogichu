@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<%- include('../head.ejs') %>
+
+<body style="
+    margin-top:120px;
+	background-image: url('/images/index/bg_header.png?4');
+	background-repeat: no-repeat;
+	background-position: top 50px right;
+	background-size:600px 159px;
+	">
+
+<%- include('../body-header.ejs') %>
+
+<div class="off-canvas-content" data-off-canvas-content>
+    <%- include('../body-site-search.ejs') %>
+
+    <%- include('../body-top-bar.ejs') %>
+
+    <main class="main-content">
+
+        <div class="grid-container">
+            <div class="grid-x grid-padding-y">
+                <div class="medium-6 medium-offset-3 cell email">
+                    <h4 class="text-center">先行门票报名信息的确认</h4>
+                    <hr>
+
+                    <h5 class="type-sidelines custom-2">
+                        <span>报名信息</span>
+                    </h5>
+                    <h5>本人</h5>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-name"> 姓（汉字）</label>
+                            <p>
+                                夏
+                            </p>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_name"> 名（汉字） </label>
+                            <p>
+                                杰
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid-x">
+                        <div class="small-12 medium-6 large-6 cell ">
+                            <label for="first-pinyin"> 姓（拼音） </label>
+                            <p>
+                                xia
+                            </p>
+                        </div>
+                        <div class="small-12 medium-6 large-6  cell">
+                            <label for="last_pinyin"> 名（拼音） </label>
+                            <p>jie</p>
+                        </div>
+                    </div>
+                    <label for="phone"> 手机号码 </label>
+                    <p>18251170137</p>
+
+                    <label for="email"> 邮箱 </label>
+                    <p>932131534@qq.com</p>
+
+                    <label for="passport_number"> 身份证号码 </label>
+                    <p>320705199302082511</p>
+
+
+
+                    <form class="register-form" method="POST" action="/ticket/update">
+                        <input type="hidden" name="_token" value="e4TzQ5bj0fUkeg80Pc5QJQe6VBJkDlJLDxKX0zA9">
+                        <input type="hidden" name="ticket_main_id" value="12">
+                        <input type="hidden" name="ticket_content_id" value="21">
+
+
+
+                        <input type="hidden" name="first_pinyin" value="xia">
+
+                        <input type="hidden" name="last_pinyin" value="jie">
+
+                        <input type="hidden" name="phone" value="18251170137">
+
+                        <input type="hidden" name="email" value="932131534@qq.com">
+
+                        <input type="hidden" name="passport_number" value="320705199302082511">
+
+                        <input type="hidden" name="passport_number_confirmation" value="320705199302082511">
+
+                        <input type="hidden" name="agree_ticket" value="1">
+
+                        <input type="hidden" name="ticket_main_id" value="12">
+
+                        <input type="hidden" name="ticket_content_id" value="21">
+
+                        <input type="hidden" name="is_agree" value="1">
+
+                        <input type="hidden" name="action" value="confirm">
+
+                        <input type="hidden" name="is_agree" value="1">
+
+                        <button type="submit" class="button expanded alert" name="action" value="back">修改信息</button>
+                        <button type="submit" class="button expanded" name="action" value="submit">申请</button>
+                    </form></div>
+            </div>
+        </div>
+
+    </main>
+
+    <%- include('../body-footer.ejs') %>
+</div>
+<!-- /.off-canvas-content -->
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+
+</html>

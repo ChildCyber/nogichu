@@ -84,7 +84,7 @@
                             <div class="card">
                                 <div class="card-section">
                                             <span class="">
-                                                • <%= blog.created_at.toLocaleDateString() %>
+                                                • <%= moment(blog.created_at).format('YYYY-MM-DD') %>
                                             </span>
                                     <a href="/blog/<%= blog.slug %>">
                                         <h4><%= blog.title %></h4>
