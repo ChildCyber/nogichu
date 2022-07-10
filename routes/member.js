@@ -17,8 +17,8 @@ router.get('/index', (req, res) => {
         }).toArray()
     }
 
-    function getMembers() {
-        return db.collection('member').find({'tags': {$ne: '四期生'}}).sort({id: 1}).project({
+    function getGoKiSei() {
+        return db.collection('member').find({'tags': '五期生'}).sort({id: 1}).project({
             photo: 1,
             name: 1,
             romaji: 1,
@@ -27,11 +27,22 @@ router.get('/index', (req, res) => {
         }).toArray()
     }
 
-    Promise.all([getYonKiSei(), getMembers()])
+    function getMembers() {
+        return db.collection('member').find({'tags': {$nin: ['四期生', '五期生']}}).sort({id: 1}).project({
+            photo: 1,
+            name: 1,
+            romaji: 1,
+            id: 1,
+            _id: 0
+        }).toArray()
+    }
+
+    Promise.all([getYonKiSei(), getMembers(), getGoKiSei()])
         .then(data => {
-            let [yonKiSei, members] = data;
+            let [yonKiSei, members, goKiSei] = data;
             let ev = Object.assign({}, req.ev);
             ev.yonKiSei = yonKiSei;
+            ev.goKiSei = goKiSei;
             ev.members = members;
             res.render('member/member-index.ejs', ev);
         })

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
     let page = Number(req.query.page) || 0;
     let skip = page > 1 ? (page - 1) * 12 : 0;
     let ev = Object.assign({}, req.ev);
+    ev.moment = moment;
 
     // 付费会员限定内容
     if (type === 'v' && req.session.premium) {
